@@ -37,8 +37,6 @@ class DetailsFragment : Fragment() {
             findNavController().navigate(R.id.action_detailsFragment_to_postsFragment)
         }
 
-
-
         return binding.root
     }
 
