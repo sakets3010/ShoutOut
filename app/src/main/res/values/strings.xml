@@ -2,4 +2,10 @@
     <string name="app_name">ShoutOut</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_organization">Select Organization</string>
+    <string name="username_name_of_organization">Username/Name of organization</string>
+    <string name="select_type">Select Type</string>
+    <string name="name">Name</string>
+    <string name="get_started">get started</string>
+    <string name="shoutout">ShoutOut</string>
 </resources>

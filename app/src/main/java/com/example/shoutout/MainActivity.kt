@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.shoutout.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {

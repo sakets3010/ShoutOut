@@ -14,12 +14,17 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class LoginViewmodel : ViewModel() {
 
     private var _isValidUser: MutableLiveData<Boolean?> = MutableLiveData()
     val isValidUser: LiveData<Boolean?>
         get() = _isValidUser
+
+    private var _isNonBitsAccount: MutableLiveData<Boolean?> = MutableLiveData()
+    val isNonBitsAccount: LiveData<Boolean?>
+        get() = _isNonBitsAccount
 
     private val _firebaseAuth = Firebase.auth
 
@@ -28,7 +33,13 @@ class LoginViewmodel : ViewModel() {
         try {
             val account = task.getResult(ApiException::class.java)
             if (account != null) {
-                firebaseAuthWithGoogle(account)
+                if (account.email?.toLowerCase(Locale.ROOT)?.endsWith("@hyderabad.bits-pilani.ac.in") == true){
+                    firebaseAuthWithGoogle(account)
+                    _isNonBitsAccount.value = false
+                }
+                else{
+                    _isNonBitsAccount.value = true
+                }
             }
         } catch (e: ApiException) {
             throw Exception (e.toString())
@@ -45,5 +56,9 @@ class LoginViewmodel : ViewModel() {
 
     fun userSignedIn() {
         _isValidUser.value = null
+    }
+
+    fun stopSnackbar() {
+        _isNonBitsAccount.value = false
     }
 }
