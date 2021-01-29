@@ -8,14 +8,16 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.shoutout.R
 import com.example.shoutout.databinding.FragmentLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
     private val viewModel by viewModels<LoginViewmodel>()
     private lateinit var _googleSignInClient: GoogleSignInClient
@@ -43,10 +45,8 @@ class LoginFragment : Fragment() {
 
         viewModel.isValidUser.observe(viewLifecycleOwner, { isValid ->
             if (isValid == true) {
-                Navigation.findNavController(
-                    requireView()
-                ).navigate(R.id.action_loginFragment_to_detailsFragment)
 
+                findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
                 Snackbar.make(requireView(), "sign in successful", Snackbar.LENGTH_LONG).show()
 
                 viewModel.userSignedIn()
@@ -60,7 +60,7 @@ class LoginFragment : Fragment() {
         viewModel.isNonBitsAccount.observe(viewLifecycleOwner,{
             if(it == true){
                 Snackbar.make(requireView(), "Use a bits account to login", Snackbar.LENGTH_LONG).show()
-                _googleSignInClient.signOut()
+               _googleSignInClient.signOut()
                 viewModel.stopSnackbar()
             }
         })

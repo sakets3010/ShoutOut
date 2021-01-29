@@ -41,7 +41,7 @@ class DetailsViewmodel @ViewModelInject constructor(
             uid, username, type, isClub, true
         )
 
-        repository.getUserReference(uid)?.set(user)
+        repository.getUserReference(uid).set(user)
 
     }
 

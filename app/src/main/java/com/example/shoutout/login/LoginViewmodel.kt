@@ -1,12 +1,9 @@
 package com.example.shoutout.login
 
 import android.content.Intent
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.Navigation
-import com.example.shoutout.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
@@ -16,7 +13,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-class LoginViewmodel : ViewModel() {
+class LoginViewmodel  : ViewModel() {
 
     private var _isValidUser: MutableLiveData<Boolean?> = MutableLiveData()
     val isValidUser: LiveData<Boolean?>
