@@ -14,4 +14,8 @@
     <string name="sign_out_body">Are you sure you want to sign out?</string>
     <string name="sign_out_positive">Yes</string>
     <string name="sign_out_negative">Cancel</string>
+    <string name="title">Title</string>
+    <string name="add_image">Add Image</string>
+    <string name="post">post</string>
+    <string name="content">Content</string>
 </resources>

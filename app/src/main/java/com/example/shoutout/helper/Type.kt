@@ -7,4 +7,5 @@ class Type {
         const val REGIONAL_ASSOC = 102L
         const val GENERAL_BODY = 103L
     }
+
 }

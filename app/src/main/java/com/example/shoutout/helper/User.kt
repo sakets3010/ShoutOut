@@ -1,4 +1,4 @@
-package com.example.shoutout
+package com.example.shoutout.helper
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

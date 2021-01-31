@@ -1,9 +1,8 @@
-package com.example.shoutout
+package com.example.shoutout.di
 
-import android.content.Context
+import com.example.shoutout.ShoutRepository
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
 
 @InstallIn(ApplicationComponent::class)
 @dagger.Module

@@ -1,14 +1,12 @@
 package com.example.shoutout.login
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.User
 import com.example.shoutout.helper.Type
+import com.example.shoutout.helper.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import java.lang.Exception
 
 class DetailsViewmodel @ViewModelInject constructor(
     private val repository: ShoutRepository
@@ -36,10 +34,8 @@ class DetailsViewmodel @ViewModelInject constructor(
 
     fun saveUserToFirebaseDatabase(username: String, type: Long, isClub: Boolean) {
 
-        val uid = Firebase.auth.uid ?: ""
-        val user = User(
-            uid, username, type, isClub, true
-        )
+        val uid = Firebase.auth.uid ?: throw java.lang.Exception("User Null")
+        val user = User( uid, username, type, isClub, true)
 
         repository.getUserReference(uid).set(user)
 

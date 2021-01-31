@@ -1,6 +1,9 @@
 package com.example.shoutout
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +15,7 @@ import com.example.shoutout.databinding.FragmentSplashBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
-
+const val SPLASH_TIME_OUT: Long = 2000
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
     private var _binding: FragmentSplashBinding? = null
@@ -24,21 +27,25 @@ class SplashFragment : Fragment() {
     ): View {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
 
-        if (Firebase.auth.currentUser != null) {
-            viewModel.detail.observe(viewLifecycleOwner, {
-                if (it.profileSet) {
-                    Log.d("navigate", "1 called")
-                    findNavController().navigate(R.id.action_splashFragment_to_postsFragment)
-                } else {
-                    Log.d("navigate", "2 called")
-                    findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-                }
-            })
-        }
-        else{
-            Log.d("navigate", "3 called")
-            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (Firebase.auth.currentUser != null) {
+                viewModel.detail.observe(viewLifecycleOwner, {
+                    if (it.profileSet) {
+
+                        findNavController().navigate(R.id.action_splashFragment_to_postsFragment)
+                    } else {
+
+                        findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                    }
+                })
+            }
+            else{
+
+                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            }
+        }, SPLASH_TIME_OUT)
+
 
 
         return binding.root
