@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shoutout">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".ShoutApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:name=".ShoutApplication"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -16,7 +18,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="MainActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

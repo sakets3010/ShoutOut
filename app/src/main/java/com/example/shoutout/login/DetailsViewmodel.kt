@@ -6,6 +6,7 @@ import com.example.shoutout.ShoutRepository
 import com.example.shoutout.helper.Type
 import com.example.shoutout.helper.User
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 
 class DetailsViewmodel @ViewModelInject constructor(
@@ -35,9 +36,18 @@ class DetailsViewmodel @ViewModelInject constructor(
     fun saveUserToFirebaseDatabase(username: String, type: Long, isClub: Boolean) {
 
         val uid = Firebase.auth.uid ?: throw java.lang.Exception("User Null")
-        val user = User( uid, username, type, isClub, true)
+        val user =
+            FirebaseInstanceId.getInstance().token?.let {
+                User( uid, username, type, isClub,
+                    it,true)
+            }
 
-        repository.getUserReference(uid).set(user)
+        if (user != null) {
+            repository.getUserReference(uid).set(user)
+        }
+        else{
+            throw java.lang.Exception("User Null")
+        }
 
     }
 

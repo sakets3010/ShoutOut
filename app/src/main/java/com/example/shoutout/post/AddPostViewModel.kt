@@ -1,11 +1,13 @@
 package com.example.shoutout.post
 
 import android.net.Uri
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
 import com.example.shoutout.helper.Post
 import com.example.shoutout.helper.Type
+import com.example.shoutout.helper.User
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
@@ -26,18 +28,25 @@ class AddPostViewModel @ViewModelInject constructor(
 
         val postRef = repository.getPost().document()
 
+        repository.getUserReference(uid).addSnapshotListener { snapshot, e ->
 
-        repository.getUserReference(uid).get().addOnSuccessListener { document ->
-            if (document != null && document.exists()) {
-
-                _name = document.getString("username").toString()
-
-                _type = document.getLong("type")?.let { getUserType(it) }.toString()
-
-            } else {
-                throw Exception("document null or empty")
+            if (e != null) {
+                return@addSnapshotListener
             }
 
+            if (snapshot != null && snapshot.exists()) {
+
+                val data = snapshot.toObject(User::class.java)
+                if (data != null) {
+                    _name = data.username
+                    _type = getUserType(data.type)
+                } else {
+                    throw java.lang.Exception("null data fetched")
+                }
+
+            } else {
+                Log.d("Add Post", "Current data: null")
+            }
             val filePath = repository.getStorageReference()
                 .child("${FirebaseDatabase.getInstance().reference.push().key}")
 
@@ -67,7 +76,7 @@ class AddPostViewModel @ViewModelInject constructor(
                     }
             }
             //if there is not an image attached (just a text post)
-             else {
+            else {
                 postRef.set(
                     Post(
                         postRef.id,
@@ -80,10 +89,13 @@ class AddPostViewModel @ViewModelInject constructor(
                     )
                 )
             }
+
+
         }
 
 
     }
+
 
     private fun getUserType(type: Long): String {
 

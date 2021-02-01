@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shoutout.R
 import com.example.shoutout.databinding.FragmentFeedBinding
-import com.example.shoutout.helper.Post
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
@@ -24,7 +23,7 @@ class FeedFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-    val postAdapter = PostAdapter()
+    private val _postAdapter = PostAdapter()
 
 
     override fun onCreateView(
@@ -33,7 +32,8 @@ class FeedFragment : Fragment() {
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
 
-        Picasso.get().load(GoogleSignIn.getLastSignedInAccount(requireContext())?.photoUrl).into(binding.profileImage)
+        Picasso.get().load(GoogleSignIn.getLastSignedInAccount(requireContext())?.photoUrl)
+            .into(binding.profileImage)
 
         binding.profileImage.setOnLongClickListener {
             MaterialAlertDialogBuilder(requireContext())
@@ -52,17 +52,33 @@ class FeedFragment : Fragment() {
         }
 
         binding.postRecycler.apply {
-            adapter = postAdapter
+            adapter = _postAdapter
         }
 
-        viewModel.posts.observe(viewLifecycleOwner,{ posts->
-           Log.d("recycle","$posts")
-           postAdapter.data = posts
-       })
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            _postAdapter.notifyDataSetChanged()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
 
-       binding.addPostButton.setOnClickListener {
-           findNavController().navigate(R.id.action_postsFragment_to_addPostFragment)
-       }
+
+        viewModel.canAdd.observe(viewLifecycleOwner,{ isClub->
+            Log.d("bool","value:${isClub}")
+            if(isClub){
+                binding.addPostButton.visibility = View.VISIBLE
+            }
+            else{
+                binding.addPostButton.visibility = View.GONE
+            }
+        })
+
+
+        viewModel.posts.observe(viewLifecycleOwner, { posts ->
+            _postAdapter.data = posts
+        })
+
+        binding.addPostButton.setOnClickListener {
+            findNavController().navigate(R.id.action_postsFragment_to_addPostFragment)
+        }
 
 
         return binding.root
