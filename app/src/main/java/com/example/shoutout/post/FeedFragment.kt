@@ -5,15 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.example.shoutout.R
 import com.example.shoutout.databinding.FragmentFeedBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
@@ -23,7 +29,7 @@ class FeedFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-    private val _postAdapter = PostAdapter()
+    private val postAdapter = PostPagingAdapter()
 
 
     override fun onCreateView(
@@ -52,28 +58,31 @@ class FeedFragment : Fragment() {
         }
 
         binding.postRecycler.apply {
-            adapter = _postAdapter
+            adapter = postAdapter
         }
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            _postAdapter.notifyDataSetChanged()
-            binding.swipeRefreshLayout.isRefreshing = false
-        }
-
-
-        viewModel.canAdd.observe(viewLifecycleOwner,{ isClub->
-            Log.d("bool","value:${isClub}")
-            if(isClub){
-                binding.addPostButton.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            viewModel.flow.collect {
+                postAdapter.submitData(it)
             }
-            else{
+        }
+
+        lifecycleScope.launch {
+            postAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.progressBar.isVisible = loadStates.refresh is LoadState.Loading
+                binding.progressBar.isVisible = loadStates.append is LoadState.Loading
+            }
+        }
+
+
+
+        viewModel.canAdd.observe(viewLifecycleOwner, { isClub ->
+            Log.d("bool", "value:${isClub}")
+            if (isClub) {
+                binding.addPostButton.visibility = View.VISIBLE
+            } else {
                 binding.addPostButton.visibility = View.GONE
             }
-        })
-
-
-        viewModel.posts.observe(viewLifecycleOwner, { posts ->
-            _postAdapter.data = posts
         })
 
         binding.addPostButton.setOnClickListener {

@@ -5,10 +5,16 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import com.example.shoutout.FirestorePagingSource
 import com.example.shoutout.ShoutRepository
 import com.example.shoutout.helper.Post
 import com.example.shoutout.helper.User
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 
@@ -52,6 +58,10 @@ class FeedViewmodel @ViewModelInject constructor(
         }
 
     }
+
+    val flow = Pager(PagingConfig(10)) {
+        FirestorePagingSource(FirebaseFirestore.getInstance())
+    }.flow.cachedIn(viewModelScope)
 
     private fun canAdd(){
         repository.getUserReference(_uid).addSnapshotListener{ snapshot,e->
