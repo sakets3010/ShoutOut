@@ -2,10 +2,7 @@ package com.example.shoutout.post
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
@@ -20,7 +17,7 @@ import com.google.firebase.ktx.Firebase
 
 class FeedViewmodel @ViewModelInject constructor(
     private val repository: ShoutRepository
-) : ViewModel() {
+) : ViewModel(), LifecycleObserver {
 
     private val _postList = arrayListOf<Post>()
 
@@ -41,12 +38,10 @@ class FeedViewmodel @ViewModelInject constructor(
 
 
     private fun addPostsToFeed() {
-        repository.getPost().orderBy("timeStamp",
-            Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->    //descending to fetch the latest post first
+        repository.getPost().addSnapshotListener { snapshot, e ->    //descending to fetch the latest post first
             if (e != null) {
                 return@addSnapshotListener
             }
-
             if (snapshot != null) {
                 _postList.clear()
               for(snap in snapshot){

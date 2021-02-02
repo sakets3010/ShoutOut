@@ -15,7 +15,7 @@ class FirestorePagingSource(
         return try {
 
             val currentPage = params.key ?: db.collection("Posts")
-                .orderBy("timeStamp", Query.Direction.DESCENDING)
+                .orderBy("timeStamp", Query.Direction.DESCENDING)   //descending to fetch the latest post first
                 .limit(10)
                 .get()
                 .await()

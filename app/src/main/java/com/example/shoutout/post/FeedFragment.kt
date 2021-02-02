@@ -1,7 +1,6 @@
 package com.example.shoutout.post
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import com.example.shoutout.R
 import com.example.shoutout.databinding.FragmentFeedBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -38,6 +38,8 @@ class FeedFragment : Fragment() {
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
 
+        setAdapterProperties()
+
         Picasso.get().load(GoogleSignIn.getLastSignedInAccount(requireContext())?.photoUrl)
             .into(binding.profileImage)
 
@@ -57,6 +59,33 @@ class FeedFragment : Fragment() {
             return@setOnLongClickListener true
         }
 
+        viewModel.posts.observe(viewLifecycleOwner, {
+            Snackbar.make(requireView(), "New posts added to feed", Snackbar.LENGTH_LONG).show()
+            postAdapter.refresh()
+            binding.postRecycler.smoothScrollToPosition(0)
+        })
+
+
+
+
+        viewModel.canAdd.observe(viewLifecycleOwner, { isClub ->
+            if (isClub) {
+                binding.addPostButton.visibility = View.VISIBLE
+            } else {
+                binding.addPostButton.visibility = View.GONE
+            }
+        })
+
+        binding.addPostButton.setOnClickListener {
+            findNavController().navigate(R.id.action_postsFragment_to_addPostFragment)
+        }
+
+
+        return binding.root
+    }
+
+
+    private fun setAdapterProperties() {
         binding.postRecycler.apply {
             adapter = postAdapter
         }
@@ -73,24 +102,6 @@ class FeedFragment : Fragment() {
                 binding.progressBar.isVisible = loadStates.append is LoadState.Loading
             }
         }
-
-
-
-        viewModel.canAdd.observe(viewLifecycleOwner, { isClub ->
-            Log.d("bool", "value:${isClub}")
-            if (isClub) {
-                binding.addPostButton.visibility = View.VISIBLE
-            } else {
-                binding.addPostButton.visibility = View.GONE
-            }
-        })
-
-        binding.addPostButton.setOnClickListener {
-            findNavController().navigate(R.id.action_postsFragment_to_addPostFragment)
-        }
-
-
-        return binding.root
     }
 
 
