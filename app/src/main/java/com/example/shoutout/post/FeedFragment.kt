@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoutout.PostPagingAdapter
 import com.example.shoutout.R
 import com.example.shoutout.databinding.FragmentFeedBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -43,6 +42,11 @@ class FeedFragment : Fragment() {
 
         binding.postRecycler.adapter = postAdapter
 
+        postAdapter.listener = { postItem ->
+            val action = FeedFragmentDirections.actionPostsFragmentToPostDetailFragment(postItem)
+            findNavController().navigate(action)
+        }
+
         Picasso.get().load(GoogleSignIn.getLastSignedInAccount(requireContext())?.photoUrl)
             .into(binding.profileImage)
 
@@ -61,6 +65,8 @@ class FeedFragment : Fragment() {
                 .show()
             return@setOnLongClickListener true
         }
+
+
 
 
         lifecycleScope.launch {

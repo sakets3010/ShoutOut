@@ -9,4 +9,11 @@
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
     </style>
+
+    <style name="TextToolbar">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="background">@color/colorBlue</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
 </resources>

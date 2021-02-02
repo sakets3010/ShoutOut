@@ -9,7 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="com.example.shoutout.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
@@ -21,7 +21,7 @@
         android:id="@+id/postsFragment"
         android:name="com.example.shoutout.post.FeedFragment"
         android:label="fragment_posts"
-        tools:layout="@layout/fragment_feed" >
+        tools:layout="@layout/fragment_feed">
         <action
             android:id="@+id/action_postsFragment_to_addPostFragment"
             app:destination="@id/addPostFragment"
@@ -34,18 +34,20 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:popUpTo="@id/postsFragment"
             app:popUpToInclusive="true" />
+
         <action
             android:id="@+id/action_postsFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
-            app:popUpTo="@id/postsFragment" />
+            app:popUpTo="@id/postsFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.shoutout.login.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_details">
         <action
             android:id="@+id/action_detailsFragment_to_postsFragment"
             app:destination="@id/postsFragment"
@@ -57,7 +59,7 @@
         android:id="@+id/splashFragment"
         android:name="com.example.shoutout.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -75,7 +77,7 @@
         android:id="@+id/addPostFragment"
         android:name="com.example.shoutout.post.AddPostFragment"
         android:label="fragment_add_post"
-        tools:layout="@layout/fragment_add_post" >
+        tools:layout="@layout/fragment_add_post">
         <action
             android:id="@+id/action_addPostFragment_to_postsFragment"
             app:destination="@id/postsFragment"
@@ -87,5 +89,15 @@
         android:id="@+id/postDetailFragment"
         android:name="com.example.shoutout.post.PostDetailFragment"
         android:label="fragment_post_detail"
-        tools:layout="@layout/fragment_post_detail" />
+        tools:layout="@layout/fragment_post_detail">
+    <argument
+        android:name="post"
+        app:argType="com.example.shoutout.helper.Post" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_postsFragment"
+            app:destination="@id/postsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/postDetailFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
