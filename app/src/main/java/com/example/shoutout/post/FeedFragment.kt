@@ -1,6 +1,7 @@
 package com.example.shoutout.post
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.RecyclerView
+import com.example.shoutout.PostPagingAdapter
 import com.example.shoutout.R
 import com.example.shoutout.databinding.FragmentFeedBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -38,7 +40,8 @@ class FeedFragment : Fragment() {
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
 
-        setAdapterProperties()
+
+        binding.postRecycler.adapter = postAdapter
 
         Picasso.get().load(GoogleSignIn.getLastSignedInAccount(requireContext())?.photoUrl)
             .into(binding.profileImage)
@@ -59,10 +62,32 @@ class FeedFragment : Fragment() {
             return@setOnLongClickListener true
         }
 
+
+        lifecycleScope.launch {
+            viewModel.flow.collect {
+                Log.d("flow","value :${postAdapter.submitData(it)}")
+                postAdapter.submitData(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            postAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.progressBar.isVisible = loadStates.refresh is LoadState.Loading
+                binding.progressBar.isVisible = loadStates.append is LoadState.Loading
+            }
+        }
+
+        binding.postRecycler.adapter?.registerAdapterDataObserver(object :
+            RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                if (positionStart == 0) {
+                    binding.postRecycler.smoothScrollToPosition(0)
+                }
+            }
+        })
+
         viewModel.posts.observe(viewLifecycleOwner, {
-            Snackbar.make(requireView(), "New posts added to feed", Snackbar.LENGTH_LONG).show()
             postAdapter.refresh()
-            binding.postRecycler.smoothScrollToPosition(0)
         })
 
 
@@ -82,26 +107,6 @@ class FeedFragment : Fragment() {
 
 
         return binding.root
-    }
-
-
-    private fun setAdapterProperties() {
-        binding.postRecycler.apply {
-            adapter = postAdapter
-        }
-
-        lifecycleScope.launch {
-            viewModel.flow.collect {
-                postAdapter.submitData(it)
-            }
-        }
-
-        lifecycleScope.launch {
-            postAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.progressBar.isVisible = loadStates.refresh is LoadState.Loading
-                binding.progressBar.isVisible = loadStates.append is LoadState.Loading
-            }
-        }
     }
 
 
