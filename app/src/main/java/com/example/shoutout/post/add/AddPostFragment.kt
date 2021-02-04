@@ -1,4 +1,4 @@
-package com.example.shoutout.post
+package com.example.shoutout.post.add
 
 import android.net.Uri
 import android.os.Bundle

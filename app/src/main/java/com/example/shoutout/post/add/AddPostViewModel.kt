@@ -1,13 +1,14 @@
-package com.example.shoutout.post
+package com.example.shoutout.post.add
 
 import android.net.Uri
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
+import com.example.shoutout.model.EditItem
 import com.example.shoutout.helper.Post
 import com.example.shoutout.helper.Type
-import com.example.shoutout.helper.User
+import com.example.shoutout.model.User
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
@@ -27,6 +28,7 @@ class AddPostViewModel @ViewModelInject constructor(
         val uid = Firebase.auth.uid ?: throw Exception("User Null")
 
         val postRef = repository.getPost().document()
+        val editRef = repository.getEditHistory(postRef.id)
 
         repository.getUserReference(uid).addSnapshotListener { snapshot, e ->
 
@@ -89,6 +91,8 @@ class AddPostViewModel @ViewModelInject constructor(
                     )
                 )
             }
+
+            editRef.add(EditItem(contentText,System.currentTimeMillis()))
 
 
         }

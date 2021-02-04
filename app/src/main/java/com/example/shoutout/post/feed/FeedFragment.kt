@@ -1,4 +1,4 @@
-package com.example.shoutout.post
+package com.example.shoutout.post.feed
 
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoutout.R
+import com.example.shoutout.adapters.PostPagingAdapter
 import com.example.shoutout.databinding.FragmentFeedBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -66,9 +67,6 @@ class FeedFragment : Fragment() {
             return@setOnLongClickListener true
         }
 
-
-
-
         lifecycleScope.launch {
             viewModel.flow.collect {
                 Log.d("flow","value :${postAdapter.submitData(it)}")
@@ -92,6 +90,8 @@ class FeedFragment : Fragment() {
             }
         })
 
+
+
         viewModel.posts.observe(viewLifecycleOwner, {
             postAdapter.refresh()
         })
@@ -112,8 +112,11 @@ class FeedFragment : Fragment() {
         }
 
 
+
         return binding.root
     }
+
+
 
 
     override fun onDestroyView() {

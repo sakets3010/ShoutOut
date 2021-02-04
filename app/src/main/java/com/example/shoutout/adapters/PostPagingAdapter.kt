@@ -1,6 +1,5 @@
-package com.example.shoutout.post
+package com.example.shoutout.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -8,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoutout.databinding.PostListItemBinding
 import com.example.shoutout.helper.Post
+import com.example.shoutout.helper.getDateTime
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,6 +28,8 @@ class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHold
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = getItem(position) ?: throw Exception("null fetched")
+
+        holder.setIsRecyclable(false)
 
         with(holder.binding) {
             titleText.text = post.titleText
@@ -57,12 +59,3 @@ class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHold
 }
 
 
-private fun getDateTime(s: Long): String? {
-    return try {
-        val sdf = SimpleDateFormat("dd-MMM-yy,hh:mmaa", Locale.getDefault())
-        val netDate = Date(s)
-        sdf.format(netDate)
-    } catch (e: Exception) {
-        throw Exception(e.toString())
-    }
-}

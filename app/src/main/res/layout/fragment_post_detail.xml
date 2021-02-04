@@ -29,6 +29,7 @@
 
     <ImageButton
         android:id="@+id/menuButton"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -45,7 +46,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         app:cardCornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +97,7 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/author"
+                    android:id="@+id/postAuthor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -115,9 +116,9 @@
                     android:text="@string/point"
                     android:textAlignment="center"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/author"
-                    app:layout_constraintStart_toEndOf="@id/author"
-                    app:layout_constraintTop_toTopOf="@id/author" />
+                    app:layout_constraintBottom_toBottomOf="@id/postAuthor"
+                    app:layout_constraintStart_toEndOf="@id/postAuthor"
+                    app:layout_constraintTop_toTopOf="@id/postAuthor" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/post_date_text"
@@ -138,9 +139,9 @@
                     android:text="@string/point"
                     android:textAlignment="center"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/author"
+                    app:layout_constraintBottom_toBottomOf="@id/postAuthor"
                     app:layout_constraintStart_toEndOf="@id/post_date_text"
-                    app:layout_constraintTop_toTopOf="@id/author" />
+                    app:layout_constraintTop_toTopOf="@id/postAuthor" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/author_category"
@@ -163,7 +164,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:textColor="@color/colorBlack"
-                    app:layout_constraintBottom_toTopOf="@+id/materialButton"
+                    app:layout_constraintBottom_toTopOf="@+id/editHistoryButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -179,11 +180,10 @@
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toTopOf="@id/commentsRecycler"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/matter_text"
-                    tools:text="0 comments" />
+                    app:layout_constraintTop_toBottomOf="@+id/matter_text" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/materialButton"
+                    android:id="@+id/editHistoryButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
@@ -198,42 +198,47 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@id/edittextComments"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <EditText
-                    android:id="@+id/edittextComments"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp"
-                    android:background="@drawable/rounded_bg"
-                    android:hint="@string/add_a_comment"
-                    android:maxWidth="150dp"
-                    android:padding="8dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="75dp"
-                    android:textColor="@color/colorWhite"
-                    android:textColorHint="@color/colorWhite"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintCircleRadius="25dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
-                <ImageButton
-                    android:id="@+id/addComment"
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/addCommentButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:src="@drawable/ic_baseline_send_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/edittextComments" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edittextComments"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginEnd="8dp"
-                    app:cornerRadius="25dp"
-                    app:layout_constraintBottom_toBottomOf="@id/edittextComments"
-                    app:layout_constraintEnd_toEndOf="@id/edittextComments"
-                    app:layout_constraintTop_toTopOf="@+id/edittextComments"
-                    app:srcCompat="@drawable/ic_baseline_send_24"
-                    android:backgroundTint="@color/colorTransparent"
-                    tools:targetApi="lollipop" />
+                    android:layout_marginBottom="24dp"
+                    android:maxWidth="150dp"
+                    app:prefixTextColor="@color/secondaryDarkColor"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintCircleRadius="25dp"
+                    app:layout_constraintEnd_toStartOf="@id/addCommentButton"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/commentEdit"
+                        android:hint="@string/add_a_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

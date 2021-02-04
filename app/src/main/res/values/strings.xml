@@ -21,4 +21,7 @@
     <string name="edit_history">Edit History</string>
     <string name="post_details">Post Details</string>
     <string name="add_a_comment">Add a Comment</string>
+    <string name="update">update</string>
+    <string name="edit_post">Edit Post</string>
+    <string name="delete_post">Delete Post</string>
 </resources>

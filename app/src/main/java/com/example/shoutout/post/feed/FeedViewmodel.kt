@@ -1,4 +1,4 @@
-package com.example.shoutout.post
+package com.example.shoutout.post.feed
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
@@ -9,10 +9,9 @@ import androidx.paging.cachedIn
 import com.example.shoutout.FirestorePagingSource
 import com.example.shoutout.ShoutRepository
 import com.example.shoutout.helper.Post
-import com.example.shoutout.helper.User
+import com.example.shoutout.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 
 class FeedViewmodel @ViewModelInject constructor(
@@ -48,6 +47,9 @@ class FeedViewmodel @ViewModelInject constructor(
                   val post = snap.toObject(Post::class.java)
                   _postList.add(post)
               }
+            }
+            else{
+                throw Exception("null snapshot")
             }
             _posts.value = _postList
         }

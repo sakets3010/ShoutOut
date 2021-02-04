@@ -15,6 +15,10 @@ class ShoutRepository  {
         return Firebase.firestore.collection("Posts").document(id)
     }
 
+    fun getEditHistory(id:String): CollectionReference {
+        return Firebase.firestore.collection("Posts").document(id).collection("EditHistory")
+    }
+
     fun getPost(): CollectionReference {
         return Firebase.firestore.collection("Posts")
     }
@@ -29,6 +33,14 @@ class ShoutRepository  {
 
     fun getStorageReference(): StorageReference {
         return FirebaseStorage.getInstance().reference.child("post_images")
+    }
+
+    fun getComment(): CollectionReference {
+        return Firebase.firestore.collection("Comments")
+    }
+
+    fun getCommentReference(commentId:String): DocumentReference {
+        return Firebase.firestore.collection("Comments").document(commentId)
     }
 
 }

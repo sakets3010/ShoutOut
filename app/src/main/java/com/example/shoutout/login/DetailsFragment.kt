@@ -1,6 +1,7 @@
 package com.example.shoutout.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ class DetailsFragment : Fragment() {
                 binding.organizationDropdownText.requestFocus()
                 return@setOnClickListener
             }
+            Log.d("category","${setCategory()}")
             viewModel.saveUserToFirebaseDatabase(binding.loginUsernameEdit.text.toString(),setCategory(),ifClub())
             findNavController().navigate(R.id.action_detailsFragment_to_postsFragment)
         }
