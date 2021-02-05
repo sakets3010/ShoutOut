@@ -8,13 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.model.Comment
 import com.example.shoutout.helper.Post
+import com.example.shoutout.model.Comment
 import com.example.shoutout.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
-import java.text.SimpleDateFormat
 import java.util.*
 
 class PostDetailViewModel @ViewModelInject constructor(
@@ -85,7 +84,7 @@ class PostDetailViewModel @ViewModelInject constructor(
 
     }
 
-    private fun checkOwnership(ownerId: String){
+    private fun checkOwnership(ownerId: String) {
         _owner.value = Firebase.auth.uid.equals(ownerId)
     }
 
@@ -105,7 +104,7 @@ class PostDetailViewModel @ViewModelInject constructor(
     }
 
 
-    fun addComments(postId: String) {
+    private fun addComments(postId: String) {
         repository.getComment().orderBy("timeStamp", Query.Direction.ASCENDING)
             .whereEqualTo("postId", postId).addSnapshotListener { snapshot, e ->
                 if (e != null) {
@@ -125,16 +124,6 @@ class PostDetailViewModel @ViewModelInject constructor(
                 _commentCount.value = _commentList.size
             }
 
-    }
-
-    fun getDateTime(s: Long): String? {
-        return try {
-            val sdf = SimpleDateFormat("dd-MMM-yy,hh:mmaa", Locale.getDefault())
-            val netDate = Date(s)
-            sdf.format(netDate)
-        } catch (e: Exception) {
-            throw Exception(e.toString())
-        }
     }
 
 

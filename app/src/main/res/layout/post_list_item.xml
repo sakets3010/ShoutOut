@@ -38,7 +38,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="CRUx Inductions" />
+                tools:text="Heading" />
 
 
             <ImageView
@@ -65,7 +65,7 @@
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/featured_image"
-                tools:text="CRUx" />
+                tools:text="Owner Name" />
 
 
             <TextView
@@ -129,7 +129,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_date_text"
                 app:layout_constraintVertical_bias="0.0"
-                tools:text="Selected students from round 1 blah blah blah" />
+                tools:text="Post Description" />
 
             <ImageButton
                 android:id="@+id/like_button"
@@ -140,9 +140,20 @@
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/colorTransparent"
                 android:src="@drawable/ic_thumb_up_24px"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/unlike_button"
                 app:layout_constraintTop_toBottomOf="@+id/matter_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/likeCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="23"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintStart_toStartOf="@id/like_button"
+                app:layout_constraintEnd_toEndOf="@id/like_button"
+                app:layout_constraintTop_toBottomOf="@id/like_button"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageButton
                 android:id="@+id/unlike_button"
@@ -153,16 +164,27 @@
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/colorTransparent"
                 android:src="@drawable/ic_thumb_down_24px"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/matter_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/unlikeCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="4"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintStart_toStartOf="@id/unlike_button"
+                app:layout_constraintEnd_toEndOf="@id/unlike_button"
+                app:layout_constraintTop_toBottomOf="@id/unlike_button"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
 
             <ImageView
                 android:id="@+id/views"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:src="@drawable/ic_visibility_24px"
                 app:layout_constraintBottom_toBottomOf="@+id/like_button"
                 app:layout_constraintStart_toStartOf="parent"

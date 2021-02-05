@@ -38,6 +38,7 @@ class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHold
             author.text = post.ownerName
             authorCategory.text = post.ownerType
             postCard.setOnClickListener { listener(post) }
+            viewCount.text = post.views.toString()
             if (post.imageUrI?.isNotEmpty() == true) {
                 Picasso.get().load(post.imageUrI).into(featuredImage)
             }
@@ -56,6 +57,7 @@ class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHold
             )
         )
     }
+
 }
 
 

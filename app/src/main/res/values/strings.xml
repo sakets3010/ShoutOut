@@ -24,4 +24,6 @@
     <string name="update">update</string>
     <string name="edit_post">Edit Post</string>
     <string name="delete_post">Delete Post</string>
+    <string name="post_analytics">Post Analytics</string>
+    <string name="edit_post_analytics">Edit Post/Analytics</string>
 </resources>

@@ -6,6 +6,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".login.LoginFragment">
 
+    <ImageView
+        android:id="@+id/splash_icon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/speaker100"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="@id/splash_icon"
+        app:layout_constraintEnd_toEndOf="@id/splash_icon"
+        app:layout_constraintTop_toBottomOf="@id/splash_icon"
+        android:text="@string/shoutout"/>
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google_button"
         android:layout_width="0dp"

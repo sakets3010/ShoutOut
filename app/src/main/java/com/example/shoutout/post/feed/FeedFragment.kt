@@ -44,6 +44,7 @@ class FeedFragment : Fragment() {
         binding.postRecycler.adapter = postAdapter
 
         postAdapter.listener = { postItem ->
+            viewModel.postOpened(postItem.postId)
             val action = FeedFragmentDirections.actionPostsFragmentToPostDetailFragment(postItem)
             findNavController().navigate(action)
         }

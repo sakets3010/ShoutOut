@@ -10,6 +10,9 @@ import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
 import com.example.shoutout.model.EditItem
 import com.example.shoutout.helper.Post
+import com.example.shoutout.model.Comment
+import com.example.shoutout.model.Opened
+import com.google.firebase.firestore.Query
 
 class EditPostViewModel @ViewModelInject constructor(
     private val repository: ShoutRepository,
@@ -20,10 +23,39 @@ class EditPostViewModel @ViewModelInject constructor(
         get() = _content
 
 
+    private val _openedList = arrayListOf<Opened>()
+
+    private var _opened: MutableLiveData<Int> = MutableLiveData()
+    val opened: LiveData<Int>
+        get() = _opened
+
+
     init {
         val post =
             savedStateHandle.get<Post>("post") ?: throw java.lang.Exception("null post object")
         getContent(post.postId)
+        getOpenedCount(postId = post.postId)
+    }
+
+
+    private fun getOpenedCount(postId: String) {
+        repository.getVisits(postId).addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
+                if (snapshot != null) {
+                    _openedList.clear()
+                    for (snap in snapshot) {
+                        val userId = snap.toObject(Opened::class.java)
+                        _openedList.add(userId)
+                    }
+                } else {
+                    Log.d("Post Detail", "Current data: null")
+                }
+
+            _opened.value = _openedList.size
+            }
+
     }
 
     fun updateHistory(postId: String,text: String){

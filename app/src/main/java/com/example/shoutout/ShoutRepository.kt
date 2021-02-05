@@ -19,6 +19,10 @@ class ShoutRepository  {
         return Firebase.firestore.collection("Posts").document(id).collection("EditHistory")
     }
 
+    fun getVisits(id:String): CollectionReference {
+        return Firebase.firestore.collection("Posts").document(id).collection("Opened")
+    }
+
     fun getPost(): CollectionReference {
         return Firebase.firestore.collection("Posts")
     }
