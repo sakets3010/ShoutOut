@@ -35,6 +35,16 @@ class EditPostFragment : Fragment() {
             findNavController().navigate(R.id.action_editPostFragment_to_postsFragment)
         }
 
+        viewModel.opened.observe(viewLifecycleOwner, { count ->
+            val countText = "opened $count times"
+            binding.openedCounter.text = countText
+        })
+
+        viewModel.opened.observe(viewLifecycleOwner, { count ->
+            val viewText = "Accounts Viewed :${count}"
+            binding.openedCounter.text = viewText
+        })
+
         viewModel.content.observe(viewLifecycleOwner, { content ->
             binding.contentEdit.setText(content)
             binding.contentEdit.addTextChangedListener(object : TextWatcher {

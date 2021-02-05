@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.shoutout.R
 import com.example.shoutout.adapters.CommentsAdapter
 import com.example.shoutout.databinding.FragmentPostDetailBinding
+import com.example.shoutout.helper.getDateTime
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +42,7 @@ class PostDetailFragment : Fragment() {
             matterText.text = args.post.contentText
             postAuthor.text = args.post.ownerName
             authorCategory.text = args.post.ownerType
-            postDateText.text = viewModel.getDateTime(args.post.timeStamp)
+            postDateText.text = getDateTime(args.post.timeStamp)
             if (!args.post.imageUrI.isNullOrEmpty()) {
                 Picasso.get().load(args.post.imageUrI).into(featuredImage)
             }

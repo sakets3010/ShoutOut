@@ -24,10 +24,15 @@ class EditPostViewModel @ViewModelInject constructor(
 
 
     private val _openedList = arrayListOf<Opened>()
+    private val _viewedList = arrayListOf<Opened>()
 
     private var _opened: MutableLiveData<Int> = MutableLiveData()
     val opened: LiveData<Int>
         get() = _opened
+
+    private var _viewed: MutableLiveData<Int> = MutableLiveData()
+    val viewed: LiveData<Int>
+        get() = _viewed
 
 
     init {
@@ -54,6 +59,26 @@ class EditPostViewModel @ViewModelInject constructor(
                 }
 
             _opened.value = _openedList.size
+            }
+
+    }
+
+    private fun getViewCount(postId: String) {
+        repository.getViews(postId).addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
+                if (snapshot != null) {
+                    _viewedList.clear()
+                    for (snap in snapshot) {
+                        val userId = snap.toObject(Opened::class.java)
+                        _viewedList.add(userId)
+                    }
+                } else {
+                    Log.d("Post Edit", "Current data: null")
+                }
+
+            _viewed.value = _viewedList.size
             }
 
     }

@@ -86,14 +86,6 @@ class FeedViewmodel @ViewModelInject constructor(
         }
     }
 
-    fun incrementViews(postId: String) {
-        val incrementDocRef = repository.getPostReference(postId)
-        Firebase.firestore.runBatch { batch ->
-            batch.update(incrementDocRef, "views", FieldValue.increment(1))
-        }.addOnSuccessListener { Log.d("feed", "Transaction success!") }
-            .addOnFailureListener { e -> Log.w("feed", "Transaction failure.", e) }
-    }
-
     fun signUserOut() {
         Firebase.auth.signOut()
     }

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/postHolder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -147,13 +148,13 @@
                 android:id="@+id/likeCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="23"
-                android:textStyle="bold"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintStart_toStartOf="@id/like_button"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/like_button"
+                app:layout_constraintStart_toStartOf="@id/like_button"
                 app:layout_constraintTop_toBottomOf="@id/like_button"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                tools:text="23" />
 
             <ImageButton
                 android:id="@+id/unlike_button"
@@ -171,36 +172,12 @@
                 android:id="@+id/unlikeCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="4"
-                android:textStyle="bold"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintStart_toStartOf="@id/unlike_button"
-                app:layout_constraintEnd_toEndOf="@id/unlike_button"
-                app:layout_constraintTop_toBottomOf="@id/unlike_button"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-            <ImageView
-                android:id="@+id/views"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/ic_visibility_24px"
-                app:layout_constraintBottom_toBottomOf="@+id/like_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/like_button" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/viewCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/views"
-                app:layout_constraintStart_toEndOf="@id/views"
-                app:layout_constraintTop_toTopOf="@id/views"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/unlike_button"
+                app:layout_constraintStart_toStartOf="@id/unlike_button"
+                app:layout_constraintTop_toBottomOf="@id/unlike_button"
                 tools:text="4" />
 
 
