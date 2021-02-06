@@ -26,4 +26,6 @@
     <string name="delete_post">Delete Post</string>
     <string name="post_analytics">Post Analytics</string>
     <string name="edit_post_analytics">Edit Post/Analytics</string>
+    <string name="reply">Reply</string>
+    <string name="add_a_reply">Add a Reply</string>
 </resources>

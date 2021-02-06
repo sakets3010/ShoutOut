@@ -9,6 +9,7 @@ import androidx.paging.cachedIn
 import com.example.shoutout.FirestorePagingSource
 import com.example.shoutout.ShoutRepository
 import com.example.shoutout.helper.Post
+import com.example.shoutout.model.Opened
 import com.example.shoutout.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -39,7 +40,7 @@ class FeedViewmodel @ViewModelInject constructor(
 
 
     fun postOpened(postId: String) {
-        repository.getVisits(postId).add(_uid)
+        repository.getVisits(postId).add(Opened(_uid))
     }
 
 
@@ -66,6 +67,12 @@ class FeedViewmodel @ViewModelInject constructor(
     val flow = Pager(PagingConfig(10)) {
         FirestorePagingSource(FirebaseFirestore.getInstance())
     }.flow.cachedIn(viewModelScope)
+
+
+    fun updateViews(postId:String){
+        Log.d("views", postId)
+        repository.getPostReference(postId).update("views", FieldValue.arrayUnion(Opened(_uid)))
+    }
 
     private fun canAdd() {
         repository.getUserReference(_uid).addSnapshotListener { snapshot, e ->

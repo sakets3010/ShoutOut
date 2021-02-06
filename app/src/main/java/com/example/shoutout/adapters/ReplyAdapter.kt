@@ -5,23 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoutout.databinding.CommentListItemBinding
 import com.example.shoutout.helper.getDateTime
-import com.example.shoutout.model.Comment
+import com.example.shoutout.model.Reply
 
-class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>() {
+class ReplyAdapter : RecyclerView.Adapter<ReplyAdapter.ReplyViewHolder>() {
 
-
-
-
-    lateinit var replyListener: (Comment) -> Unit
-
-    var data = listOf<Comment>()
+    var data = listOf<Reply>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
-        return CommentsViewHolder(
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ReplyViewHolder {
+        return ReplyViewHolder(
             CommentListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -32,24 +30,18 @@ class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>
 
     override fun getItemCount() = data.size
 
-    override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReplyAdapter.ReplyViewHolder, position: Int) {
         val userComment = data[position]
 
         with(holder.binding) {
             author.text = userComment.author
             comment.text = userComment.comment
             commentDate.text = getDateTime(userComment.timeStamp)
-            commentsLayout.setOnClickListener {
-                replyListener(userComment)
-            }
-
-            val replyAdapter = ReplyAdapter()
-            replyRecycler.adapter = replyAdapter
-            replyAdapter.data = userComment.replies
         }
+
+
     }
 
-    inner class CommentsViewHolder(val binding: CommentListItemBinding) :
+    inner class ReplyViewHolder(val binding: CommentListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
-

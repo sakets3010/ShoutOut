@@ -64,19 +64,10 @@ class PostDetailFragment : Fragment() {
             showMenu(v, R.menu.post_control_menu)
         }
 
-//        commentsAdapter.replyListener = { comment ->
-//            val reply = "Replying to '${comment.comment}'~${comment.author}: "
-//            MaterialAlertDialogBuilder(requireContext())
-//                .setTitle("Action")
-//                .setMessage("Reply to text?")
-//                .setNeutralButton("Cancel") { _, _ ->
-//                    // Do nothing
-//                }
-//                .setPositiveButton("Yes,Reply") { _, _ ->
-//                    binding.edittextComments.prefixText = reply
-//                }
-//                .show()
-//        }
+        commentsAdapter.replyListener = { comment ->
+            val action = PostDetailFragmentDirections.actionPostDetailFragmentToReplyFragment(comment)
+            findNavController().navigate(action)
+        }
 
         viewModel.owner.observe(viewLifecycleOwner, { isOwner ->
             if (isOwner) {

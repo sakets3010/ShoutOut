@@ -8,11 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.model.EditItem
 import com.example.shoutout.helper.Post
-import com.example.shoutout.model.Comment
+import com.example.shoutout.model.EditItem
 import com.example.shoutout.model.Opened
-import com.google.firebase.firestore.Query
 
 class EditPostViewModel @ViewModelInject constructor(
     private val repository: ShoutRepository,
@@ -24,7 +22,6 @@ class EditPostViewModel @ViewModelInject constructor(
 
 
     private val _openedList = arrayListOf<Opened>()
-    private val _viewedList = arrayListOf<Opened>()
 
     private var _opened: MutableLiveData<Int> = MutableLiveData()
     val opened: LiveData<Int>
@@ -40,51 +37,52 @@ class EditPostViewModel @ViewModelInject constructor(
             savedStateHandle.get<Post>("post") ?: throw java.lang.Exception("null post object")
         getContent(post.postId)
         getOpenedCount(postId = post.postId)
+        getViewCount(postId = post.postId)
     }
 
 
     private fun getOpenedCount(postId: String) {
         repository.getVisits(postId).addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    return@addSnapshotListener
+            if (e != null) {
+                return@addSnapshotListener
+            }
+            if (snapshot != null) {
+                _openedList.clear()
+                for (snap in snapshot) {
+                    val userId = snap.toObject(Opened::class.java)
+                    _openedList.add(userId)
                 }
-                if (snapshot != null) {
-                    _openedList.clear()
-                    for (snap in snapshot) {
-                        val userId = snap.toObject(Opened::class.java)
-                        _openedList.add(userId)
-                    }
-                } else {
-                    Log.d("Post Detail", "Current data: null")
-                }
+            } else {
+                Log.d("Post Detail", "Current data: null")
+            }
 
             _opened.value = _openedList.size
-            }
+        }
 
     }
 
     private fun getViewCount(postId: String) {
-        repository.getViews(postId).addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    return@addSnapshotListener
-                }
-                if (snapshot != null) {
-                    _viewedList.clear()
-                    for (snap in snapshot) {
-                        val userId = snap.toObject(Opened::class.java)
-                        _viewedList.add(userId)
-                    }
-                } else {
-                    Log.d("Post Edit", "Current data: null")
-                }
-
-            _viewed.value = _viewedList.size
+        repository.getPostReference(postId).addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                return@addSnapshotListener
             }
+            if (snapshot != null) {
+                val post =
+                    snapshot.toObject(Post::class.java) ?: throw Exception("null snapshot value")
+
+                _viewed.value = post.views.size
+
+            } else {
+                Log.d("Post Edit", "Current data: null")
+            }
+
+
+        }
 
     }
 
-    fun updateHistory(postId: String,text: String){
-        repository.getEditHistory(postId).add(EditItem(text,System.currentTimeMillis()))
+    fun updateHistory(postId: String, text: String) {
+        repository.getEditHistory(postId).add(EditItem(text, System.currentTimeMillis()))
     }
 
 

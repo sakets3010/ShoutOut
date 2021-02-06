@@ -40,9 +40,9 @@ class EditPostFragment : Fragment() {
             binding.openedCounter.text = countText
         })
 
-        viewModel.opened.observe(viewLifecycleOwner, { count ->
+        viewModel.viewed.observe(viewLifecycleOwner, { count ->
             val viewText = "Accounts Viewed :${count}"
-            binding.openedCounter.text = viewText
+            binding.viewCounter.text = viewText
         })
 
         viewModel.content.observe(viewLifecycleOwner, { content ->

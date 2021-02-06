@@ -49,6 +49,10 @@ class FeedFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        postAdapter.viewListener = { postId ->
+            viewModel.updateViews(postId)
+        }
+
         Picasso.get().load(GoogleSignIn.getLastSignedInAccount(requireContext())?.photoUrl)
             .into(binding.profileImage)
 

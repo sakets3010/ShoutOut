@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
 import com.example.shoutout.helper.Post
 import com.example.shoutout.model.Comment
+import com.example.shoutout.model.Reply
 import com.example.shoutout.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Query
@@ -26,6 +27,7 @@ class PostDetailViewModel @ViewModelInject constructor(
 
 
     private val _commentList = arrayListOf<Comment>()
+    private val _replyList = arrayListOf<Reply>()
 
     private var _comments: MutableLiveData<List<Comment>> = MutableLiveData()
     val comments: LiveData<List<Comment>>
@@ -92,18 +94,6 @@ class PostDetailViewModel @ViewModelInject constructor(
         repository.getPostReference(postId).delete()
     }
 
-    fun updateReplyStatus(commentId: String, author: String, comment: String) {
-        repository.getCommentReference(commentId).update(
-            mapOf(
-                "reply" to true,
-                "replyToAuthor" to author,
-                "replyToComment" to comment
-
-            )
-        )
-    }
-
-
     private fun addComments(postId: String) {
         repository.getComment().orderBy("timeStamp", Query.Direction.ASCENDING)
             .whereEqualTo("postId", postId).addSnapshotListener { snapshot, e ->
@@ -112,16 +102,19 @@ class PostDetailViewModel @ViewModelInject constructor(
                 }
                 if (snapshot != null) {
                     _commentList.clear()
+                    _replyList.clear()
                     for (snap in snapshot) {
                         val comment = snap.toObject(Comment::class.java)
+                        comment.replies.forEach {
+                            _replyList.add(it)
+                        }
                         _commentList.add(comment)
-                        Log.d("comment", "list:$_commentList")
                     }
                 } else {
                     Log.d("Post Detail", "Current data: null")
                 }
                 _comments.value = _commentList
-                _commentCount.value = _commentList.size
+                _commentCount.value = _commentList.size + _replyList.size
             }
 
     }

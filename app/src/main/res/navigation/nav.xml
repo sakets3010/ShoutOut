@@ -112,6 +112,11 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/postDetailFragment" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_replyFragment"
+            app:destination="@id/replyFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/editPostFragment"
@@ -138,5 +143,13 @@
         <argument
             android:name="post"
             app:argType="com.example.shoutout.helper.Post" />
+    </fragment>
+    <fragment
+        android:id="@+id/replyFragment"
+        android:name="com.example.shoutout.post.comment.ReplyFragment"
+        android:label="ReplyFragment">
+        <argument
+            android:name="comment"
+            app:argType="com.example.shoutout.model.Comment" />
     </fragment>
 </navigation>

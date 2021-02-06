@@ -7,9 +7,6 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class ShoutApplication: Application(){
-    companion object{
-        lateinit var globalRecyclerView: RecyclerView
-    }
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

@@ -19,10 +19,6 @@ class ShoutRepository  {
         return Firebase.firestore.collection("Posts").document(id).collection("EditHistory")
     }
 
-    fun getViews(id:String): CollectionReference {
-        return Firebase.firestore.collection("Posts").document(id).collection("Viewed")
-    }
-
     fun getVisits(id:String): CollectionReference {
         return Firebase.firestore.collection("Posts").document(id).collection("Opened")
     }
@@ -33,10 +29,6 @@ class ShoutRepository  {
 
     fun getUserReference(uid:String): DocumentReference {
         return Firebase.firestore.collection("Users").document(uid)
-    }
-
-    fun getUser(): CollectionReference {
-        return Firebase.firestore.collection("Users")
     }
 
     fun getStorageReference(): StorageReference {
@@ -50,5 +42,6 @@ class ShoutRepository  {
     fun getCommentReference(commentId:String): DocumentReference {
         return Firebase.firestore.collection("Comments").document(commentId)
     }
+
 
 }
