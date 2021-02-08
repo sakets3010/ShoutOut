@@ -1,6 +1,7 @@
 package com.example.shoutout.login
 
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -46,7 +47,7 @@ class LoginViewmodel  : ViewModel() {
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         _firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
-
+            Log.d("validuser","${it.isSuccessful}")
             _isValidUser.value = it.isSuccessful
         }
     }

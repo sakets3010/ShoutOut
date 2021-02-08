@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         _googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("359389111159-sm3g4rqsqn0mrmj5otqiqq5fpnd4mdt6.apps.googleusercontent.com")
+            .requestIdToken("677003624-mfsfpc35lm4h9fpj0jp8u3sete266igu.apps.googleusercontent.com")
             .requestEmail()
             .build()
         _googleSignInClient = GoogleSignIn.getClient(requireContext(), _googleSignInOptions)
@@ -45,14 +45,12 @@ class LoginFragment : Fragment() {
 
         viewModel.isValidUser.observe(viewLifecycleOwner, { isValid ->
             if (isValid == true) {
-
                 findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
                 Snackbar.make(requireView(), "sign in successful", Snackbar.LENGTH_LONG).show()
-
                 viewModel.userSignedIn()
             } else if (isValid == false) {
-
                 Snackbar.make(requireView(), "sign in unsuccessful", Snackbar.LENGTH_LONG).show()
+                _googleSignInClient.signOut()
             }
 
         })

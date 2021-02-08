@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.shoutout.R
 import com.example.shoutout.adapters.CommentsAdapter
 import com.example.shoutout.databinding.FragmentPostDetailBinding
+import com.example.shoutout.helper.Type
 import com.example.shoutout.helper.getDateTime
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
@@ -60,14 +61,35 @@ class PostDetailFragment : Fragment() {
             }
         }
 
+        binding.reactButton.setOnClickListener {
+            if (binding.emojiLayout.visibility == View.VISIBLE) {
+                binding.emojiLayout.visibility = View.GONE
+            } else if (binding.emojiLayout.visibility == View.GONE) {
+                binding.emojiLayout.visibility = View.VISIBLE
+            }
+        }
+
+        with(binding) {
+            emojiTextView1.setOnClickListener { getEmoji(Type.LIKE) }
+            emojiTextView2.setOnClickListener { getEmoji(Type.HEART) }
+            emojiTextView3.setOnClickListener { getEmoji(Type.WOW) }
+            emojiTextView4.setOnClickListener { getEmoji(Type.LAUGH) }
+            emojiTextView5.setOnClickListener { getEmoji(Type.SAD) }
+        }
+
         binding.menuButton.setOnClickListener { v: View ->
             showMenu(v, R.menu.post_control_menu)
         }
 
         commentsAdapter.replyListener = { comment ->
-            val action = PostDetailFragmentDirections.actionPostDetailFragmentToReplyFragment(comment)
+            val action =
+                PostDetailFragmentDirections.actionPostDetailFragmentToReplyFragment(comment)
             findNavController().navigate(action)
         }
+
+        viewModel.react.observe(viewLifecycleOwner, { type ->
+            binding.reactedEmoji.text = viewModel.getEmojiType(requireContext(),type)
+        })
 
         viewModel.owner.observe(viewLifecycleOwner, { isOwner ->
             if (isOwner) {
@@ -95,6 +117,8 @@ class PostDetailFragment : Fragment() {
 
         return binding.root
     }
+
+    private fun getEmoji(type: Long) = viewModel.addEmoji(args.post.postId, type)
 
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
         val popup = PopupMenu(requireContext(), v)

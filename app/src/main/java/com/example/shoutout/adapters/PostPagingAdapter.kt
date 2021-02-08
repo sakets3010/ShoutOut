@@ -2,6 +2,7 @@ package com.example.shoutout.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -10,14 +11,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoutout.ShoutRepository
 import com.example.shoutout.databinding.PostListItemBinding
 import com.example.shoutout.helper.Post
+import com.example.shoutout.helper.Type
 import com.example.shoutout.helper.getDateTime
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 
 class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHolder>(Companion) {
 
+    private val _uid = Firebase.auth.uid ?: throw Exception("User Null")
+
     lateinit var listener: (Post) -> Unit
     lateinit var viewListener: (String) -> Unit
+    lateinit var emojiListener: (String, Long) -> Unit
 
     val repository = ShoutRepository()
 
@@ -48,17 +55,16 @@ class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHold
             author.text = post.ownerName
             authorCategory.text = post.ownerType
             postCard.setOnClickListener { listener(post) }
-
             if (post.imageUrI?.isNotEmpty() == true) {
                 Picasso.get().load(post.imageUrI).into(featuredImage)
             }
-//            val initPosition =
-//                (shoutRecyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-//            val lastPosition =
-//                (shoutRecyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-//            Log.d("views","$initPosition,$lastPosition,$position")
-            if ((shoutRecyclerView.layoutManager as LinearLayoutManager).isViewPartiallyVisible(holder.binding.postHolder,true,false)) {
-                Log.d("views","listener called")
+            if ((shoutRecyclerView.layoutManager as LinearLayoutManager).isViewPartiallyVisible(
+                    holder.binding.postHolder,
+                    true,
+                    false
+                )
+            ) {
+                Log.d("views", "listener called")
                 viewListener(post.postId)
             }
         }
@@ -83,6 +89,8 @@ class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHold
         super.onAttachedToRecyclerView(recyclerView)
         shoutRecyclerView = recyclerView
     }
+
+
 
 
 }

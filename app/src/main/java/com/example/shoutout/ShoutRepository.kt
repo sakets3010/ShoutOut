@@ -23,6 +23,10 @@ class ShoutRepository  {
         return Firebase.firestore.collection("Posts").document(id).collection("Opened")
     }
 
+    fun getReacts(id:String): CollectionReference {
+        return Firebase.firestore.collection("Posts").document(id).collection("Reacts")
+    }
+
     fun getPost(): CollectionReference {
         return Firebase.firestore.collection("Posts")
     }

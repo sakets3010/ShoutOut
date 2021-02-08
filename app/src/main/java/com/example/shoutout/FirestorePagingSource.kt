@@ -2,6 +2,7 @@ package com.example.shoutout
 
 import android.util.Log
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.example.shoutout.helper.Post
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -46,5 +47,7 @@ class FirestorePagingSource(
             LoadResult.Error(e)
         }
     }
+
+
 }
 

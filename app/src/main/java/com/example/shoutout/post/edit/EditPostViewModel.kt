@@ -20,7 +20,6 @@ class EditPostViewModel @ViewModelInject constructor(
     val content: LiveData<String>
         get() = _content
 
-
     private val _openedList = arrayListOf<Opened>()
 
     private var _opened: MutableLiveData<Int> = MutableLiveData()
@@ -31,6 +30,10 @@ class EditPostViewModel @ViewModelInject constructor(
     val viewed: LiveData<Int>
         get() = _viewed
 
+    private var _reacted: MutableLiveData<Int> = MutableLiveData()
+    val reacted: LiveData<Int>
+        get() = _reacted
+
 
     init {
         val post =
@@ -38,6 +41,7 @@ class EditPostViewModel @ViewModelInject constructor(
         getContent(post.postId)
         getOpenedCount(postId = post.postId)
         getViewCount(postId = post.postId)
+        getReactCount(postId = post.postId)
     }
 
 
@@ -81,6 +85,23 @@ class EditPostViewModel @ViewModelInject constructor(
 
     }
 
+    private fun getReactCount(postId: String) {
+        var count = 0
+        repository.getReacts(postId).addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                return@addSnapshotListener
+            }
+            if (snapshot != null) {
+                for (snap in snapshot) {
+                    count++
+                }
+            } else {
+                Log.d("Edit Post", "Current data: null")
+            }
+            _reacted.value = count
+        }
+    }
+
     fun updateHistory(postId: String, text: String) {
         repository.getEditHistory(postId).add(EditItem(text, System.currentTimeMillis()))
     }
@@ -110,7 +131,7 @@ class EditPostViewModel @ViewModelInject constructor(
                 }
 
             } else {
-                Log.d("Post Detail", "Current data: null")
+                Log.d("Edit Post", "Current data: null")
             }
         }
     }

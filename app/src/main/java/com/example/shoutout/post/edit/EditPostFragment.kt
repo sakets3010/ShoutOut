@@ -36,13 +36,18 @@ class EditPostFragment : Fragment() {
         }
 
         viewModel.opened.observe(viewLifecycleOwner, { count ->
-            val countText = "opened $count times"
+            val countText = "Opened $count times"
             binding.openedCounter.text = countText
         })
 
         viewModel.viewed.observe(viewLifecycleOwner, { count ->
-            val viewText = "Accounts Viewed :${count}"
+            val viewText = "$count account(s) viewed"
             binding.viewCounter.text = viewText
+        })
+
+        viewModel.reacted.observe(viewLifecycleOwner, { count ->
+            val reactText = "$count account(s) reacted"
+            binding.reactCounter.text = reactText
         })
 
         viewModel.content.observe(viewLifecycleOwner, { content ->

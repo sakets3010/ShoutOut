@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "359389111159",
-    "project_id": "shoutout-d3035",
-    "storage_bucket": "shoutout-d3035.appspot.com"
+    "project_number": "677003624",
+    "project_id": "shoutout2-30223",
+    "storage_bucket": "shoutout2-30223.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:359389111159:android:3a21e63960c10b8a113772",
+        "mobilesdk_app_id": "1:677003624:android:88625655f3391ca43316dd",
         "android_client_info": {
           "package_name": "com.example.shoutout"
         }
       },
       "oauth_client": [
         {
-          "client_id": "359389111159-65thn7akcpoj7ub15mn5o6mertrjlb0k.apps.googleusercontent.com",
+          "client_id": "677003624-lnfp2lh1mfmmi7b8jlbvh93f32tjonop.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.shoutout",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "359389111159-sm3g4rqsqn0mrmj5otqiqq5fpnd4mdt6.apps.googleusercontent.com",
+          "client_id": "677003624-mfsfpc35lm4h9fpj0jp8u3sete266igu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDtT-a9cOHbjxGppjY88p88NbNgiS5XIr4"
+          "current_key": "AIzaSyABaAYL_vdKlSFTp67O2vGiqicqF3I0k_Y"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "359389111159-sm3g4rqsqn0mrmj5otqiqq5fpnd4mdt6.apps.googleusercontent.com",
+              "client_id": "677003624-mfsfpc35lm4h9fpj0jp8u3sete266igu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

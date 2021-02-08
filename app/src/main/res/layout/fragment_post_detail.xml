@@ -29,12 +29,12 @@
 
     <ImageButton
         android:id="@+id/menuButton"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/colorTransparent"
         android:src="@drawable/ic_action_menu"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/textHead"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textHead" />
@@ -175,12 +175,105 @@
                     android:id="@+id/commentText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toTopOf="@id/commentsRecycler"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/editHistoryButton"
+                    app:layout_constraintStart_toEndOf="@id/reactButton"
                     app:layout_constraintTop_toBottomOf="@+id/matter_text" />
+
+                <ImageButton
+                    android:id="@+id/reactButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/colorTransparent"
+                    android:src="@drawable/ic_action_react"
+                    app:layout_constraintBottom_toBottomOf="@id/commentText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/commentText" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/reactedEmoji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/author_category"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/author_category"
+                    app:layout_constraintTop_toTopOf="@id/author_category" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/emojiLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/commentsRecycler"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/reactButton">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/emoji_text_view1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:text="@string/emoji1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/emoji_text_view2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="@string/emoji2"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/emoji_text_view1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/emoji_text_view3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="@string/emoji3"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/emoji_text_view2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/emoji_text_view4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="@string/emoji4"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/emoji_text_view3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/emoji_text_view5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="@string/emoji5"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/emoji_text_view4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/editHistoryButton"
@@ -224,19 +317,19 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="24dp"
                     android:maxWidth="150dp"
-                    app:prefixTextColor="@color/secondaryDarkColor"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintCircleRadius="25dp"
                     app:layout_constraintEnd_toStartOf="@id/addCommentButton"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:prefixTextColor="@color/secondaryDarkColor">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/commentEdit"
-                        android:hint="@string/add_a_comment"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:hint="@string/add_a_comment" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

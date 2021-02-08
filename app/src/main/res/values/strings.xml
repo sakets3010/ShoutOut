@@ -28,4 +28,10 @@
     <string name="edit_post_analytics">Edit Post/Analytics</string>
     <string name="reply">Reply</string>
     <string name="add_a_reply">Add a Reply</string>
+    <string name="emoji1">&#128077;</string>
+    <string name="emoji2">&#128150;</string>
+    <string name="emoji3">&#128558;</string>
+    <string name="emoji4">&#128514;</string>
+    <string name="emoji5">&#128549;</string>
+    <string name="saket">saket</string>
 </resources>

@@ -14,7 +14,6 @@ import com.example.shoutout.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class FeedViewmodel @ViewModelInject constructor(
@@ -69,7 +68,10 @@ class FeedViewmodel @ViewModelInject constructor(
     }.flow.cachedIn(viewModelScope)
 
 
-    fun updateViews(postId:String){
+
+
+
+    fun updateViews(postId: String) {
         Log.d("views", postId)
         repository.getPostReference(postId).update("views", FieldValue.arrayUnion(Opened(_uid)))
     }
@@ -81,12 +83,8 @@ class FeedViewmodel @ViewModelInject constructor(
             }
 
             if (snapshot != null && snapshot.exists()) {
-                val data = snapshot.toObject(User::class.java)
-                if (data != null) {
-                    _canAdd.value = data.club
-                } else {
-                    throw Exception("cant determine org")
-                }
+                val data = snapshot.toObject(User::class.java) ?: throw Exception("null retrieved")
+                _canAdd.value = data.club
             } else {
                 Log.d("Feed", "Current data: null")
             }

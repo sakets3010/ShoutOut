@@ -10,4 +10,5 @@ data class Comment(
     val comment: String = "",
     val postId: String = "",
     val timeStamp: Long = 0L,
+    val replies: List<Reply> = listOf()
 ) : Parcelable

@@ -1,5 +1,6 @@
 package com.example.shoutout.post.detail
 
+import android.content.Context
 import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -7,15 +8,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.shoutout.R
 import com.example.shoutout.ShoutRepository
 import com.example.shoutout.helper.Post
+import com.example.shoutout.helper.Type
 import com.example.shoutout.model.Comment
+import com.example.shoutout.model.Emoji
 import com.example.shoutout.model.Reply
 import com.example.shoutout.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import java.util.*
+import kotlin.collections.HashMap
 
 class PostDetailViewModel @ViewModelInject constructor(
     private val repository: ShoutRepository,
@@ -33,6 +38,10 @@ class PostDetailViewModel @ViewModelInject constructor(
     val comments: LiveData<List<Comment>>
         get() = _comments
 
+    private var _react: MutableLiveData<Long> = MutableLiveData()
+    val react: LiveData<Long>
+        get() = _react
+
     private var _commentCount: MutableLiveData<Int> = MutableLiveData()
     val commentCount: LiveData<Int>
         get() = _commentCount
@@ -47,6 +56,7 @@ class PostDetailViewModel @ViewModelInject constructor(
             savedStateHandle.get<Post>("post") ?: throw java.lang.Exception("null post object")
         checkOwnership(post.ownerId)
         addComments(postId = post.postId)
+        fetchEmoji(post.postId)
     }
 
 
@@ -86,6 +96,33 @@ class PostDetailViewModel @ViewModelInject constructor(
 
     }
 
+    private fun fetchEmoji(postId: String) {
+        repository.getReacts(postId).document(_uid).addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                val data = snapshot.toObject(Emoji::class.java)
+                    ?: throw java.lang.Exception("null retrieved")
+
+            _react.value = data.react.getValue(_uid)
+
+            } else {
+                Log.d("Post Detail", "Current data: null")
+            }
+        }
+
+
+    }
+
+    fun addEmoji(postId: String, Type: Long) {
+        val emoji = HashMap<String, Long>()
+        emoji[_uid] = Type
+        repository.getReacts(postId).document(_uid).set(Emoji(emoji))
+    }
+
+
     private fun checkOwnership(ownerId: String) {
         _owner.value = Firebase.auth.uid.equals(ownerId)
     }
@@ -117,6 +154,17 @@ class PostDetailViewModel @ViewModelInject constructor(
                 _commentCount.value = _commentList.size + _replyList.size
             }
 
+    }
+
+    fun getEmojiType(context:Context,type: Long): String {
+        return when (type) {
+            Type.LIKE -> context.getString(R.string.emoji1)
+            Type.HEART -> context.getString(R.string.emoji2)
+            Type.WOW -> context.getString(R.string.emoji3)
+            Type.LAUGH -> context.getString(R.string.emoji4)
+            Type.SAD -> context.getString(R.string.emoji5)
+            else -> throw java.lang.Exception("undetermined type")
+        }
     }
 
 
