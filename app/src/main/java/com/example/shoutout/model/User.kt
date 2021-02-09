@@ -9,6 +9,5 @@ data class User(
     val username: String = "",
     val type: Long = 103L,
     val club: Boolean = false,
-    val registrationToken:String = "",
     val profileSet: Boolean = false
 ) : Parcelable

@@ -14,7 +14,5 @@ data class Post(
     val ownerName: String = "",
     val ownerType: String = "",
     val timeStamp: Long = 0L,
-    val upVotes: Int = 0,
-    val downVotes: Int = 0,
-    val views: List<Opened> = listOf(),
+    val views: List<Opened> = listOf()
 ) : Parcelable

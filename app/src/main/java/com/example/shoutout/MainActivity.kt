@@ -17,7 +17,5 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-//        val navController = Navigation.findNavController(this, R.id.home_nav)
-//        binding.bottomNavigation.setupWithNavController(navController)
     }
 }

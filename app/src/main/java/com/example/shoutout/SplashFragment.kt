@@ -32,17 +32,14 @@ class SplashFragment : Fragment() {
             if (Firebase.auth.currentUser != null) {
                 viewModel.detail.observe(viewLifecycleOwner, {
                     if (it.profileSet) {
-
-                        findNavController().navigate(R.id.action_splashFragment_to_postsFragment)
+                        findNavController().navigate(R.id.action_splashFragment_to_postsFragment)   //if registered,signed in both
                     } else {
-
-                        findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                        findNavController().navigate(R.id.action_splashFragment_to_detailsFragment) //if signed in but not registered
                     }
                 })
             }
             else{
-
-                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)  //if neither
             }
         }, SPLASH_TIME_OUT)
 

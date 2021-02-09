@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ShoutOut</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="select_organization">Select Organization</string>
     <string name="username_name_of_organization">Username/Name of organization</string>
@@ -33,5 +32,5 @@
     <string name="emoji3">&#128558;</string>
     <string name="emoji4">&#128514;</string>
     <string name="emoji5">&#128549;</string>
-    <string name="saket">saket</string>
+    <string name="add_post">Add Post</string>
 </resources>

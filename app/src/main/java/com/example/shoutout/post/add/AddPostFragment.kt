@@ -2,9 +2,14 @@ package com.example.shoutout.post.add
 
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,15 +37,24 @@ class AddPostFragment : Fragment() {
             _pickImages.launch("image/*")
         }
 
+
+        checkIfEmpty(binding.matterEdit, binding.addPost)
+
         binding.addPost.setOnClickListener {
-            viewModel.savePostToFirebaseDatabase(binding.titleEdit.text.toString(),_selectedPhotoUri,binding.MatterEdit.text.toString())
+            viewModel.savePostToFirebaseDatabase(
+                binding.titleEdit.text.toString(),
+                _selectedPhotoUri,
+                binding.matterEdit.text.toString()
+            )
             findNavController().navigate(R.id.action_addPostFragment_to_postsFragment)
         }
+
 
         return binding.root
     }
 
-    private val _pickImages = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+    private val _pickImages =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let { it ->
                 _selectedPhotoUri = it
                 Picasso.get().load(it).into(binding.postImage)
@@ -51,6 +65,27 @@ class AddPostFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun checkIfEmpty(editText: EditText, button: Button) {
+
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                button.isEnabled = s.toString().trim { it <= ' ' }.isNotEmpty()
+                Log.d("viewsxd", "${button.isEnabled}")
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int, count: Int,
+                after: Int
+            ) {
+                // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                // TODO Auto-generated method stub
+            }
+        })
     }
 
 

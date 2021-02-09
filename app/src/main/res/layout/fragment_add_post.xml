@@ -5,19 +5,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     tools:context=".post.add.AddPostFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textHead"
+        style="@style/TextToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="?actionBarSize"
+        android:layout_marginStart="32dp"
+        android:gravity="center"
+        android:text="@string/add_post"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/textHead"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textHead" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/textHead">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/usernameTitleLayout"
@@ -30,12 +55,10 @@
                 app:counterEnabled="true"
                 app:counterMaxLength="15"
                 app:errorEnabled="true"
-                app:layout_constraintBottom_toTopOf="@+id/post_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/title_edit"
@@ -55,9 +78,7 @@
                 android:layout_marginBottom="16dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toTopOf="@+id/addImageButton"
                 app:layout_constraintEnd_toEndOf="@id/usernameTitleLayout"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@id/usernameTitleLayout"
                 app:layout_constraintTop_toBottomOf="@+id/usernameTitleLayout" />
 
@@ -69,9 +90,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/add_image"
                 app:icon="@drawable/ic_baseline_image_24"
-                app:layout_constraintBottom_toTopOf="@+id/usernameMatterLayout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_image" />
 
@@ -87,14 +106,12 @@
                 app:counterEnabled="true"
                 app:counterMaxLength="200"
                 app:errorEnabled="true"
-                app:layout_constraintBottom_toTopOf="@+id/addPost"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addImageButton">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Matter_edit"
+                    android:id="@+id/matter_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/content"
@@ -108,16 +125,19 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginBottom="52dp"
+                android:enabled="false"
                 android:text="@string/post"
                 app:icon="@drawable/ic_baseline_add_24"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/usernameMatterLayout" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

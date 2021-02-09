@@ -72,6 +72,11 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"
@@ -82,7 +87,7 @@
             android:id="@+id/action_addPostFragment_to_postsFragment"
             app:destination="@id/postsFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:popUpTo="@id/addPostFragment"
+            app:popUpTo="@id/postsFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -93,12 +98,6 @@
         <argument
             android:name="post"
             app:argType="com.example.shoutout.helper.Post" />
-        <action
-            android:id="@+id/action_postDetailFragment_to_postsFragment"
-            app:destination="@id/postsFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:popUpTo="@id/postDetailFragment"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_postDetailFragment_to_editPostFragment"
             app:destination="@id/editPostFragment"
@@ -117,6 +116,11 @@
             app:destination="@id/replyFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_postsFragment2"
+            app:destination="@id/postsFragment"
+            app:popUpTo="@id/postsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/editPostFragment"
@@ -132,7 +136,7 @@
             app:destination="@id/postsFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
-            app:popUpTo="@id/editPostFragment"
+            app:popUpTo="@id/postsFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

@@ -2,9 +2,12 @@ package com.example.shoutout.login
 
 import android.content.Intent
 import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.shoutout.ShoutRepository
+import com.example.shoutout.model.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
@@ -15,6 +18,10 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class LoginViewmodel  : ViewModel() {
+
+    private var _detail: MutableLiveData<User> = MutableLiveData()
+    val detail: LiveData<User>
+        get() = _detail
 
     private var _isValidUser: MutableLiveData<Boolean?> = MutableLiveData()
     val isValidUser: LiveData<Boolean?>
@@ -47,7 +54,6 @@ class LoginViewmodel  : ViewModel() {
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         _firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
-            Log.d("validuser","${it.isSuccessful}")
             _isValidUser.value = it.isSuccessful
         }
     }

@@ -139,7 +139,7 @@ class PostDetailFragment : Fragment() {
                         }
                         .setPositiveButton("Delete") { _, _ ->
                             viewModel.deletePost(args.post.postId)
-                            findNavController().navigate(R.id.action_postDetailFragment_to_postsFragment)
+                            findNavController().navigate(R.id.action_postDetailFragment_to_postsFragment2)
                         }
                         .show()
                 }
