@@ -17,7 +17,7 @@
     <string name="add_image">Add Image</string>
     <string name="post">post</string>
     <string name="content">Content</string>
-    <string name="edit_history">Edit History</string>
+    <string name="edit_history"><u>Edit History</u></string>
     <string name="post_details">Post Details</string>
     <string name="add_a_comment">Add a Comment</string>
     <string name="update">update</string>

@@ -109,7 +109,7 @@ class PostDetailFragment : Fragment() {
 
         })
 
-        binding.editHistoryButton.setOnClickListener {
+        binding.editHistoryText.setOnClickListener {
             val action =
                 PostDetailFragmentDirections.actionPostDetailFragmentToEditHistoryFragment(args.post)
             findNavController().navigate(action)

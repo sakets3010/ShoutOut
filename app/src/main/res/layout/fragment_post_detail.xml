@@ -164,7 +164,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:textColor="@color/colorBlack"
-                    app:layout_constraintBottom_toTopOf="@+id/editHistoryButton"
+                    app:layout_constraintBottom_toTopOf="@+id/editHistoryText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -178,7 +178,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toTopOf="@id/commentsRecycler"
-                    app:layout_constraintEnd_toStartOf="@id/editHistoryButton"
+                    app:layout_constraintEnd_toStartOf="@id/editHistoryText"
                     app:layout_constraintStart_toEndOf="@id/reactButton"
                     app:layout_constraintTop_toBottomOf="@+id/matter_text" />
 
@@ -275,8 +275,9 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/editHistoryButton"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/editHistoryText"
+                    android:textColor="@color/colorBlue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"

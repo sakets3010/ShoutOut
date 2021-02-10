@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.shoutout.SplashFragment"
+        android:name="com.example.shoutout.post.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
