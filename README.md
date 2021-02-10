@@ -3,8 +3,11 @@
 ## An introduction
 ShoutOut is a native Android app to enable the clubs, departments, and regional assocs of BPHC to post announcements which can be seen and interacted with by the general body.
 Functionality:
+
 Built to allow access only to BITS email addresses.
+
 Feature set for club accounts : adding posts, viewing a post’s analytics (number of views, engagements, reacts), editing and deleting posts.
+
 Feature set for student accounts: liking and reacting to posts , viewing a post’s edit history, commenting on posts and replying to comments.
 
 ## Tech stack 
