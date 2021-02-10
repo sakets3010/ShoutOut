@@ -4,7 +4,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,17 +61,11 @@ class AddPostFragment : Fragment() {
             }
         }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun checkIfEmpty(editText: EditText, button: Button) {
 
         editText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 button.isEnabled = s.toString().trim { it <= ' ' }.isNotEmpty()
-                Log.d("viewsxd", "${button.isEnabled}")
             }
 
             override fun beforeTextChanged(
@@ -86,6 +79,11 @@ class AddPostFragment : Fragment() {
                 // TODO Auto-generated method stub
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
