@@ -3,7 +3,6 @@ package com.example.shoutout.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,11 +37,11 @@ class DetailsFragment : Fragment() {
 
         binding.getStartedButton.setOnClickListener {
             if (binding.organizationDropdownText.text.isEmpty()) {
-                binding.organizationDropdownText.error = "required field"
+                binding.organizationDropdownText.error = getString(R.string.required)
                 binding.organizationDropdownText.requestFocus()
                 return@setOnClickListener
             }
-            Log.d("category", "${setCategory()}")
+
             viewModel.saveUserToFirebaseDatabase(
                 binding.loginUsernameEdit.text.toString(),
                 setCategory(),
@@ -55,7 +54,12 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setDropdownAdapter() {
-        val items = arrayOf("Club", "Department", "Regional Assoc", "General Body")
+        val items = arrayOf(
+            getString(R.string.club),
+            getString(R.string.dept),
+            getString(R.string.RegAssoc),
+            getString(R.string.genBody)
+        )
 
         val dropDownAdapter = ArrayAdapter(
             requireContext(),
@@ -65,8 +69,7 @@ class DetailsFragment : Fragment() {
         binding.organizationDropdownText.setAdapter(dropDownAdapter)
     }
 
-    private fun setCategory() =
-        viewModel.setCategory(binding.organizationDropdownText.text.toString())
+    private fun setCategory() = viewModel.setCategory(binding.organizationDropdownText.text.toString())
 
     private fun ifClub() = viewModel.determineWhetherClub(setCategory())
 

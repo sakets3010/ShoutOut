@@ -132,12 +132,12 @@ class PostDetailFragment : Fragment() {
                 }
                 R.id.deletePost -> {
                     MaterialAlertDialogBuilder(requireContext())
-                        .setTitle("Action")
-                        .setMessage("Delete Post?")
-                        .setNeutralButton("Cancel") { _, _ ->
+                        .setTitle(getString(R.string.action))
+                        .setMessage(getString(R.string.deletePost))
+                        .setNeutralButton(getString(R.string.cancel)) { _, _ ->
                             // Do nothing
                         }
-                        .setPositiveButton("Delete") { _, _ ->
+                        .setPositiveButton(getString(R.string.delete)) { _, _ ->
                             viewModel.deletePost(args.post.postId)
                             findNavController().navigate(R.id.action_postDetailFragment_to_postsFragment2)
                         }

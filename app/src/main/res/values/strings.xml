@@ -33,4 +33,19 @@
     <string name="emoji4">&#128514;</string>
     <string name="emoji5">&#128549;</string>
     <string name="add_post">Add Post</string>
+    <string name="null_exception">null fetched</string>
+    <string name="nullException">null value</string>
+    <string name="required">required field</string>
+    <string name="club">Club</string>
+    <string name="dept">Department</string>
+    <string name="RegAssoc">Regional Assoc</string>
+    <string name="genBody">General Body</string>
+    <string name="sign_in_success">sign in successful</string>
+    <string name="sign_in_unsucessful">sign in unsuccessful</string>
+    <string name="bits_account">Use a bits account to login</string>
+    <string name="null_editable">null editable</string>
+    <string name="action">Action</string>
+    <string name="deletePost">Delete Post?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>

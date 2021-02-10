@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.model.User
+import com.example.shoutout.dataClasses.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

@@ -97,7 +97,7 @@
         tools:layout="@layout/fragment_post_detail">
         <argument
             android:name="post"
-            app:argType="com.example.shoutout.helper.Post" />
+            app:argType="com.example.shoutout.dataClasses.Post" />
         <action
             android:id="@+id/action_postDetailFragment_to_editPostFragment"
             app:destination="@id/editPostFragment"
@@ -130,7 +130,7 @@
 
         <argument
             android:name="post"
-            app:argType="com.example.shoutout.helper.Post" />
+            app:argType="com.example.shoutout.dataClasses.Post" />
         <action
             android:id="@+id/action_editPostFragment_to_postsFragment"
             app:destination="@id/postsFragment"
@@ -146,7 +146,7 @@
         tools:layout="@layout/fragment_edit_history" >
         <argument
             android:name="post"
-            app:argType="com.example.shoutout.helper.Post" />
+            app:argType="com.example.shoutout.dataClasses.Post" />
     </fragment>
     <fragment
         android:id="@+id/replyFragment"
@@ -154,6 +154,6 @@
         android:label="ReplyFragment">
         <argument
             android:name="comment"
-            app:argType="com.example.shoutout.model.Comment" />
+            app:argType="com.example.shoutout.dataClasses.Comment" />
     </fragment>
 </navigation>

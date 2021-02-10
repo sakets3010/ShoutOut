@@ -1,13 +1,10 @@
 package com.example.shoutout.login
 
 import android.content.Intent
-import android.util.Log
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.shoutout.ShoutRepository
-import com.example.shoutout.model.User
+import com.example.shoutout.dataClasses.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
@@ -17,7 +14,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-class LoginViewmodel  : ViewModel() {
+class LoginViewmodel : ViewModel() {
 
     private var _detail: MutableLiveData<User> = MutableLiveData()
     val detail: LiveData<User>
@@ -38,16 +35,18 @@ class LoginViewmodel  : ViewModel() {
         try {
             val account = task.getResult(ApiException::class.java)
             if (account != null) {
-                if (account.email?.toLowerCase(Locale.ROOT)?.endsWith("@hyderabad.bits-pilani.ac.in") == true){
+                if (account.email?.toLowerCase(Locale.ROOT)
+                        ?.endsWith("@hyderabad.bits-pilani.ac.in")
+                        ?: throw java.lang.Exception("null value")
+                ) {
                     firebaseAuthWithGoogle(account)
                     _isNonBitsAccount.value = false
-                }
-                else{
+                } else {
                     _isNonBitsAccount.value = true
                 }
             }
         } catch (e: ApiException) {
-            throw Exception (e.toString())
+            throw Exception(e.toString())
         }
     }
 

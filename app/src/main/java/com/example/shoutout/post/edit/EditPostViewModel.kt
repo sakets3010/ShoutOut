@@ -8,9 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.helper.Post
-import com.example.shoutout.model.EditItem
-import com.example.shoutout.model.Opened
+import com.example.shoutout.dataClasses.Post
+import com.example.shoutout.dataClasses.EditItem
+import com.example.shoutout.dataClasses.Opened
 
 class EditPostViewModel @ViewModelInject constructor(
     private val repository: ShoutRepository,
@@ -38,7 +38,7 @@ class EditPostViewModel @ViewModelInject constructor(
     init {
         val post =
             savedStateHandle.get<Post>("post") ?: throw java.lang.Exception("null post object")
-        getContent(post.postId)
+        getContent(postId = post.postId)
         getOpenedCount(postId = post.postId)
         getViewCount(postId = post.postId)
         getReactCount(postId = post.postId)
@@ -57,7 +57,7 @@ class EditPostViewModel @ViewModelInject constructor(
                     _openedList.add(userId)
                 }
             } else {
-                Log.d("Post Detail", "Current data: null")
+                Log.d("Edit Post", "Current data: null")
             }
 
             _opened.value = _openedList.size
@@ -73,11 +73,10 @@ class EditPostViewModel @ViewModelInject constructor(
             if (snapshot != null) {
                 val post =
                     snapshot.toObject(Post::class.java) ?: throw Exception("null snapshot value")
-
                 _viewed.value = post.views.size
 
             } else {
-                Log.d("Post Edit", "Current data: null")
+                Log.d("Edit Post", "Current data: null")
             }
 
 
@@ -127,7 +126,7 @@ class EditPostViewModel @ViewModelInject constructor(
                 if (data != null) {
                     _content.value = data.contentText
                 } else {
-                    throw java.lang.Exception("null data fetched")
+                    throw java.lang.Exception("null data retrieved")
                 }
 
             } else {

@@ -8,12 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.model.Comment
-import com.example.shoutout.model.Reply
-import com.example.shoutout.model.User
-import com.google.firebase.auth.ktx.auth
+import com.example.shoutout.dataClasses.Comment
+import com.example.shoutout.dataClasses.Reply
+import com.example.shoutout.dataClasses.User
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.ktx.Firebase
 
 class ReplyViewModel @ViewModelInject constructor(
     private val repository: ShoutRepository,
@@ -34,7 +32,7 @@ class ReplyViewModel @ViewModelInject constructor(
     }
 
     private lateinit var _name: String
-    private val _uid = Firebase.auth.uid ?: throw Exception("User Null")
+    private val _uid = repository.getUserId()
 
     fun saveReplyToFirebaseDatabase(comment: String, commentId: String) {
 
@@ -51,11 +49,11 @@ class ReplyViewModel @ViewModelInject constructor(
                 if (data != null) {
                     _name = data.username
                 } else {
-                    throw java.lang.Exception("null data fetched")
+                    throw java.lang.Exception("null data retrieved")
                 }
 
             } else {
-                Log.d("Post Detail", "Current data: null")
+                Log.d("Reply Details", "Current data: null")
             }
 
             replyRef.update(
@@ -81,7 +79,7 @@ class ReplyViewModel @ViewModelInject constructor(
                 }
 
             } else {
-                Log.d("Reply", "Current data: null")
+                Log.d("Reply Details", "Current data: null")
             }
             _replies.value = _replyList
         }

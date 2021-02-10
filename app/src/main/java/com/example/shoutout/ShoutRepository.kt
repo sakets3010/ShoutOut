@@ -1,15 +1,18 @@
 package com.example.shoutout
 
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import dagger.Provides
 
 
 class ShoutRepository  {
+
+
+    fun getUserId() = Firebase.auth.uid ?: throw Exception("User Null")
 
     fun getPostReference(id:String): DocumentReference {
         return Firebase.firestore.collection("Posts").document(id)

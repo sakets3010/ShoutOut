@@ -5,15 +5,13 @@ import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.model.EditItem
-import com.example.shoutout.helper.Post
+import com.example.shoutout.dataClasses.Post
 import com.example.shoutout.helper.Type
-import com.example.shoutout.model.User
+import com.example.shoutout.dataClasses.EditItem
+import com.example.shoutout.dataClasses.User
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.UploadTask
 
 class AddPostViewModel @ViewModelInject constructor(
@@ -25,8 +23,7 @@ class AddPostViewModel @ViewModelInject constructor(
 
     fun savePostToFirebaseDatabase(titleText: String, imageUrI: Uri?, contentText: String) {
 
-        val uid = Firebase.auth.uid ?: throw Exception("User Null")
-
+        val uid = repository.getUserId()
         val postRef = repository.getPost().document()
         val editRef = repository.getEditHistory(postRef.id)
 
@@ -92,7 +89,9 @@ class AddPostViewModel @ViewModelInject constructor(
                 )
             }
 
-            editRef.add(EditItem(contentText,System.currentTimeMillis()))
+
+
+            editRef.add(EditItem(contentText, System.currentTimeMillis()))
 
 
         }

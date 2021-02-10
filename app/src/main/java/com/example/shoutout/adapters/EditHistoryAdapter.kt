@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoutout.databinding.EditListItemBinding
 import com.example.shoutout.helper.getDateTime
-import com.example.shoutout.model.EditItem
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.shoutout.dataClasses.EditItem
 
 class EditHistoryAdapter : RecyclerView.Adapter<EditHistoryAdapter.EditHistoryViewHolder>() {
 

@@ -1,8 +1,7 @@
 package com.example.shoutout
 
-import android.util.Log
 import androidx.paging.PagingSource
-import com.example.shoutout.helper.Post
+import com.example.shoutout.dataClasses.Post
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
@@ -25,8 +24,6 @@ class FirestorePagingSource(
                     .limit(PAGING_LIMIT)
                     .get()
                     .await()
-
-            Log.d("page","value paging:${currentPage.toObjects(Post::class.java)}")
 
             val lastDocumentSnapshot = currentPage.documents[currentPage.size() - 1]
 

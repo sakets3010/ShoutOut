@@ -14,8 +14,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/select_type"
-        app:errorEnabled="true"
         app:endIconMode="dropdown_menu"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/nameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -55,8 +55,8 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         app:counterEnabled="true"
-        app:errorEnabled="true"
         app:counterMaxLength="15"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -75,12 +75,12 @@
         android:id="@+id/getStartedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/usernameTextLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:enabled="false"
         android:text="@string/get_started"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/usernameTextLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

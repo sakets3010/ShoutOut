@@ -1,7 +1,6 @@
 package com.example.shoutout.post.feed
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,6 @@ class FeedFragment : Fragment() {
     private var _binding: FragmentFeedBinding? = null
     private val binding get() = _binding!!
 
-
     private val postAdapter = PostPagingAdapter()
 
 
@@ -39,7 +37,6 @@ class FeedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
-
 
         binding.postRecycler.adapter = postAdapter
 
@@ -72,9 +69,11 @@ class FeedFragment : Fragment() {
             return@setOnLongClickListener true
         }
 
+        setLoading()
+
         lifecycleScope.launch {
             viewModel.flow.collect {
-                Log.d("flow","value :${postAdapter.submitData(it)}")
+                setNotLoading()
                 postAdapter.submitData(it)
             }
         }
@@ -86,7 +85,7 @@ class FeedFragment : Fragment() {
             }
         }
 
-        binding.postRecycler.adapter?.registerAdapterDataObserver(object :
+        binding.postRecycler.adapter?.registerAdapterDataObserver(object :       //will observe and check for updates and if there are new posts,will scroll smoothly to pos 0
             RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 if (positionStart == 0) {
@@ -102,8 +101,6 @@ class FeedFragment : Fragment() {
         })
 
 
-
-
         viewModel.canAdd.observe(viewLifecycleOwner, { isClub ->
             if (isClub) {
                 binding.addPostButton.visibility = View.VISIBLE
@@ -116,12 +113,19 @@ class FeedFragment : Fragment() {
             findNavController().navigate(R.id.action_postsFragment_to_addPostFragment)
         }
 
-
-
         return binding.root
     }
 
 
+    private fun setLoading() {
+        binding.loadingProgress.visibility = View.VISIBLE
+        binding.postRecycler.visibility = View.GONE
+    }
+
+    private fun setNotLoading() {
+        binding.loadingProgress.visibility = View.GONE
+        binding.postRecycler.visibility = View.VISIBLE
+    }
 
 
     override fun onDestroyView() {

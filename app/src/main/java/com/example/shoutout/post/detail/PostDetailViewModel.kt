@@ -1,5 +1,6 @@
 package com.example.shoutout.post.detail
 
+import android.app.DownloadManager
 import android.content.Context
 import android.util.Log
 import androidx.hilt.Assisted
@@ -10,12 +11,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.R
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.helper.Post
+import com.example.shoutout.dataClasses.*
 import com.example.shoutout.helper.Type
-import com.example.shoutout.model.Comment
-import com.example.shoutout.model.Emoji
-import com.example.shoutout.model.Reply
-import com.example.shoutout.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
@@ -28,7 +25,7 @@ class PostDetailViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     private lateinit var _name: String
-    private val _uid = Firebase.auth.uid ?: throw Exception("User Null")
+    private val _uid = repository.getUserId()
 
 
     private val _commentList = arrayListOf<Comment>()
@@ -53,7 +50,7 @@ class PostDetailViewModel @ViewModelInject constructor(
 
     init {
         val post =
-            savedStateHandle.get<Post>("post") ?: throw java.lang.Exception("null post object")
+            savedStateHandle.get<Post>("post") ?: throw java.lang.Exception("null value")
         checkOwnership(post.ownerId)
         addComments(postId = post.postId)
         fetchEmoji(post.postId)
@@ -75,7 +72,7 @@ class PostDetailViewModel @ViewModelInject constructor(
                 if (data != null) {
                     _name = data.username
                 } else {
-                    throw java.lang.Exception("null data fetched")
+                    throw java.lang.Exception("null data retrieved")
                 }
 
             } else {
@@ -106,7 +103,7 @@ class PostDetailViewModel @ViewModelInject constructor(
                 val data = snapshot.toObject(Emoji::class.java)
                     ?: throw java.lang.Exception("null retrieved")
 
-            _react.value = data.react.getValue(_uid)
+                _react.value = data.react.getValue(_uid)
 
             } else {
                 Log.d("Post Detail", "Current data: null")
@@ -151,12 +148,12 @@ class PostDetailViewModel @ViewModelInject constructor(
                     Log.d("Post Detail", "Current data: null")
                 }
                 _comments.value = _commentList
-                _commentCount.value = _commentList.size + _replyList.size
+                _commentCount.value = _commentList.size.plus(_replyList.size)
             }
 
     }
 
-    fun getEmojiType(context:Context,type: Long): String {
+    fun getEmojiType(context: Context, type: Long): String {
         return when (type) {
             Type.LIKE -> context.getString(R.string.emoji1)
             Type.HEART -> context.getString(R.string.emoji2)

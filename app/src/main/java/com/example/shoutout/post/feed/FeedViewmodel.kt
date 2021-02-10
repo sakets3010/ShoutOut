@@ -8,9 +8,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.shoutout.FirestorePagingSource
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.helper.Post
-import com.example.shoutout.model.Opened
-import com.example.shoutout.model.User
+import com.example.shoutout.dataClasses.Post
+import com.example.shoutout.dataClasses.Opened
+import com.example.shoutout.dataClasses.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,7 +22,7 @@ class FeedViewmodel @ViewModelInject constructor(
 
     private val _postList = arrayListOf<Post>()
 
-    private val _uid = Firebase.auth.uid ?: throw Exception("User Null")
+    private val _uid = repository.getUserId()
 
     private var _posts: MutableLiveData<List<Post>> = MutableLiveData()
     val posts: LiveData<List<Post>>
@@ -56,7 +56,7 @@ class FeedViewmodel @ViewModelInject constructor(
                         _postList.add(post)
                     }
                 } else {
-                    throw Exception("null snapshot")
+                    Log.d("Feed", "Current data: null")
                 }
                 _posts.value = _postList
             }
@@ -68,11 +68,7 @@ class FeedViewmodel @ViewModelInject constructor(
     }.flow.cachedIn(viewModelScope)
 
 
-
-
-
     fun updateViews(postId: String) {
-        Log.d("views", postId)
         repository.getPostReference(postId).update("views", FieldValue.arrayUnion(Opened(_uid)))
     }
 

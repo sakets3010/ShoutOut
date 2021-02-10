@@ -1,7 +1,7 @@
-package com.example.shoutout.helper
+package com.example.shoutout.dataClasses
 
 import android.os.Parcelable
-import com.example.shoutout.model.Opened
+import com.example.shoutout.dataClasses.Opened
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

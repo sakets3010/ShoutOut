@@ -3,14 +3,11 @@ package com.example.shoutout.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shoutout.dataClasses.Comment
 import com.example.shoutout.databinding.CommentListItemBinding
 import com.example.shoutout.helper.getDateTime
-import com.example.shoutout.model.Comment
 
 class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>() {
-
-
-
 
     lateinit var replyListener: (Comment) -> Unit
 
@@ -19,6 +16,7 @@ class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>
             field = value
             notifyDataSetChanged()
         }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
         return CommentsViewHolder(

@@ -55,8 +55,8 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
             android:layout_marginBottom="32dp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -234,7 +234,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:text="@string/emoji2"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/emoji_text_view1"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -245,7 +244,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:text="@string/emoji3"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/emoji_text_view2"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -256,7 +254,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:text="@string/emoji4"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/emoji_text_view3"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -267,7 +264,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:text="@string/emoji5"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/emoji_text_view4"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -277,11 +273,11 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/editHistoryText"
-                    android:textColor="@color/colorBlue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
                     android:text="@string/edit_history"
+                    android:textColor="@color/colorBlue"
                     app:layout_constraintBottom_toBottomOf="@id/commentText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/commentText" />

@@ -6,9 +6,10 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shoutout.R
 import com.example.shoutout.ShoutRepository
 import com.example.shoutout.databinding.PostListItemBinding
-import com.example.shoutout.helper.Post
+import com.example.shoutout.dataClasses.Post
 import com.example.shoutout.helper.getDateTime
 import com.squareup.picasso.Picasso
 
@@ -16,6 +17,7 @@ import com.squareup.picasso.Picasso
 class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHolder>(Companion) {
 
     lateinit var listener: (Post) -> Unit
+
     var viewListener: ((String) -> Unit?)? = null
 
     val repository = ShoutRepository()
@@ -35,7 +37,8 @@ class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHold
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = getItem(position) ?: throw Exception("null fetched")
+        val post = getItem(position)
+            ?: throw Exception(holder.itemView.context.getString(R.string.null_exception))
 
         holder.setIsRecyclable(false)
 
@@ -47,7 +50,9 @@ class PostPagingAdapter : PagingDataAdapter<Post, PostPagingAdapter.PostViewHold
             author.text = post.ownerName
             authorCategory.text = post.ownerType
             postCard.setOnClickListener { listener(post) }
-            if (post.imageUrI?.isNotEmpty() ?: throw java.lang.Exception("null value")) {
+            if (post.imageUrI?.isNotEmpty()
+                    ?: throw java.lang.Exception(holder.itemView.context.getString(R.string.null_exception))
+            ) {
                 Picasso.get().load(post.imageUrI).into(featuredImage)
             }
             if ((shoutRecyclerView.layoutManager as LinearLayoutManager).isViewPartiallyVisible(

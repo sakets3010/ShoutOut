@@ -43,8 +43,6 @@ class SplashFragment : Fragment() {
             }
         }, SPLASH_TIME_OUT)
 
-
-
         return binding.root
     }
 

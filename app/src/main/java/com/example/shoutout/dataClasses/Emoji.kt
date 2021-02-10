@@ -1,4 +1,4 @@
-package com.example.shoutout.model
+package com.example.shoutout.dataClasses
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

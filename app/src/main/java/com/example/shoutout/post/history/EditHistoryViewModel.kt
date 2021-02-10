@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.model.EditItem
-import com.example.shoutout.helper.Post
+import com.example.shoutout.dataClasses.EditItem
+import com.example.shoutout.dataClasses.Post
 import com.google.firebase.firestore.Query
 
 class EditHistoryViewModel @ViewModelInject constructor(

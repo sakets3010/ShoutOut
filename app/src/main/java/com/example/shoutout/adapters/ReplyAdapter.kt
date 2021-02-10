@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoutout.databinding.CommentListItemBinding
 import com.example.shoutout.helper.getDateTime
-import com.example.shoutout.model.Reply
+import com.example.shoutout.dataClasses.Reply
 
 class ReplyAdapter : RecyclerView.Adapter<ReplyAdapter.ReplyViewHolder>() {
 

@@ -46,10 +46,10 @@ class LoginFragment : Fragment() {
         viewModel.isValidUser.observe(viewLifecycleOwner, { isValid ->
             if (isValid == true) {
                 findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
-                Snackbar.make(requireView(), "sign in successful", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(requireView(), getString(R.string.sign_in_success), Snackbar.LENGTH_LONG).show()
                 viewModel.userSignedIn()
             } else if (isValid == false) {
-                Snackbar.make(requireView(), "sign in unsuccessful", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(requireView(), getString(R.string.sign_in_unsucessful), Snackbar.LENGTH_LONG).show()
                 _googleSignInClient.signOut()
             }
 
@@ -57,7 +57,7 @@ class LoginFragment : Fragment() {
 
         viewModel.isNonBitsAccount.observe(viewLifecycleOwner,{
             if(it == true){
-                Snackbar.make(requireView(), "Use a bits account to login", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(requireView(), getString(R.string.bits_account), Snackbar.LENGTH_LONG).show()
                _googleSignInClient.signOut()
                 viewModel.stopSnackbar()
             }

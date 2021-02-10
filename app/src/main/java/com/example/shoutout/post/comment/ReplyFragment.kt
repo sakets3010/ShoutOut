@@ -1,23 +1,20 @@
 package com.example.shoutout.post.comment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.shoutout.R
-import com.example.shoutout.adapters.CommentsAdapter
 import com.example.shoutout.adapters.ReplyAdapter
-import com.example.shoutout.databinding.FragmentEditPostBinding
 import com.example.shoutout.databinding.FragmentReplyBinding
 import com.example.shoutout.helper.getDateTime
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ReplyFragment : Fragment() {
-
 
 
     private val args by navArgs<ReplyFragmentArgs>()
@@ -45,17 +42,15 @@ class ReplyFragment : Fragment() {
             }
         }
 
-        with(binding){
+        with(binding) {
             author.text = args.comment.author
             comment.text = args.comment.comment
             commentDate.text = getDateTime(args.comment.timeStamp)
         }
 
-
-        viewModel.replies.observe(viewLifecycleOwner,{ replies ->
+        viewModel.replies.observe(viewLifecycleOwner, { replies ->
             replyAdapter.data = replies
         })
-
 
         return binding.root
     }
@@ -65,7 +60,6 @@ class ReplyFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
 
 }
