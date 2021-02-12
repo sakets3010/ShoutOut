@@ -8,17 +8,20 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.shoutout.FirestorePagingSource
 import com.example.shoutout.ShoutRepository
-import com.example.shoutout.dataClasses.Post
 import com.example.shoutout.dataClasses.Opened
+import com.example.shoutout.dataClasses.Post
 import com.example.shoutout.dataClasses.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
+
 
 class FeedViewmodel @ViewModelInject constructor(
     private val repository: ShoutRepository
 ) : ViewModel(), LifecycleObserver {
+
 
     private val _postList = arrayListOf<Post>()
 
@@ -44,7 +47,7 @@ class FeedViewmodel @ViewModelInject constructor(
 
 
     private fun addPostsToFeed() {
-        repository.getPost()
+        repository.getPost().orderBy("timeStamp", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, e ->    //descending to fetch the latest post first
                 if (e != null) {
                     return@addSnapshotListener

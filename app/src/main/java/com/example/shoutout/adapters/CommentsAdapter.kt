@@ -40,7 +40,6 @@ class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>
             commentsLayout.setOnClickListener {
                 replyListener(userComment)
             }
-
             val replyAdapter = ReplyAdapter()
             replyRecycler.adapter = replyAdapter
             replyAdapter.data = userComment.replies
