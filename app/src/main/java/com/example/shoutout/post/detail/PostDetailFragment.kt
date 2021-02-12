@@ -38,6 +38,12 @@ class PostDetailFragment : Fragment() {
     ): View {
         _binding = FragmentPostDetailBinding.inflate(inflater, container, false)
 
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         with(binding) {
             titleText.text = args.post.titleText
             matterText.text = args.post.contentText
@@ -114,8 +120,6 @@ class PostDetailFragment : Fragment() {
                 PostDetailFragmentDirections.actionPostDetailFragmentToEditHistoryFragment(args.post)
             findNavController().navigate(action)
         }
-
-        return binding.root
     }
 
     private fun getEmoji(type: Long) = viewModel.addEmoji(args.post.postId, type)

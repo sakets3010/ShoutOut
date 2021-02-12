@@ -29,6 +29,11 @@ class DetailsFragment : Fragment() {
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setDropdownAdapter()
 
 
@@ -49,8 +54,6 @@ class DetailsFragment : Fragment() {
             )
             findNavController().navigate(R.id.action_detailsFragment_to_postsFragment)
         }
-
-        return binding.root
     }
 
     private fun setDropdownAdapter() {

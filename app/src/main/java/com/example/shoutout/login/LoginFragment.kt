@@ -32,6 +32,12 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         _googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("677003624-mfsfpc35lm4h9fpj0jp8u3sete266igu.apps.googleusercontent.com")
             .requestEmail()
@@ -46,24 +52,31 @@ class LoginFragment : Fragment() {
         viewModel.isValidUser.observe(viewLifecycleOwner, { isValid ->
             if (isValid == true) {
                 findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
-                Snackbar.make(requireView(), getString(R.string.sign_in_success), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.sign_in_success),
+                    Snackbar.LENGTH_LONG
+                ).show()
                 viewModel.userSignedIn()
             } else if (isValid == false) {
-                Snackbar.make(requireView(), getString(R.string.sign_in_unsucessful), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.sign_in_unsucessful),
+                    Snackbar.LENGTH_LONG
+                ).show()
                 _googleSignInClient.signOut()
             }
 
         })
 
-        viewModel.isNonBitsAccount.observe(viewLifecycleOwner,{
-            if(it == true){
-                Snackbar.make(requireView(), getString(R.string.bits_account), Snackbar.LENGTH_LONG).show()
-               _googleSignInClient.signOut()
+        viewModel.isNonBitsAccount.observe(viewLifecycleOwner, {
+            if (it == true) {
+                Snackbar.make(requireView(), getString(R.string.bits_account), Snackbar.LENGTH_LONG)
+                    .show()
+                _googleSignInClient.signOut()
                 viewModel.stopSnackbar()
             }
         })
-
-        return binding.root
     }
 
     private val _signInLauncher =

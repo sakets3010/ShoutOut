@@ -26,7 +26,9 @@ import kotlinx.coroutines.launch
 class FeedFragment : Fragment() {
 
     private val viewModel by viewModels<FeedViewmodel>()
+
     private var _binding: FragmentFeedBinding? = null
+
     private val binding get() = _binding!!
 
     private val postAdapter = PostPagingAdapter()
@@ -37,7 +39,11 @@ class FeedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.postRecycler.adapter = postAdapter
 
         postAdapter.listener = { postItem ->
@@ -113,7 +119,6 @@ class FeedFragment : Fragment() {
             findNavController().navigate(R.id.action_postsFragment_to_addPostFragment)
         }
 
-        return binding.root
     }
 
 

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.shoutout.R
 import com.example.shoutout.adapters.ReplyAdapter
 import com.example.shoutout.databinding.FragmentReplyBinding
 import com.example.shoutout.helper.getDateTime
@@ -29,6 +28,12 @@ class ReplyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentReplyBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.replyRecycler.adapter = replyAdapter
 
@@ -52,7 +57,6 @@ class ReplyFragment : Fragment() {
             replyAdapter.data = replies
         })
 
-        return binding.root
     }
 
 

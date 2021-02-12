@@ -32,6 +32,11 @@ class AddPostFragment : Fragment() {
     ): View {
         _binding = FragmentAddPostBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.addImageButton.setOnClickListener {
             _pickImages.launch("image/*")
         }
@@ -48,8 +53,6 @@ class AddPostFragment : Fragment() {
             findNavController().navigate(R.id.action_addPostFragment_to_postsFragment)
         }
 
-
-        return binding.root
     }
 
     private val _pickImages =

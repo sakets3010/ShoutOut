@@ -27,13 +27,16 @@ class EditHistoryFragment : Fragment() {
     ): View {
         _binding = FragmentEditHistoryBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.editHistoryRecycler.adapter = editHistoryAdapter
 
         viewModel.history.observe(viewLifecycleOwner, { history ->
             editHistoryAdapter.data = history
         })
-
-        return binding.root
     }
 
     override fun onDestroyView() {

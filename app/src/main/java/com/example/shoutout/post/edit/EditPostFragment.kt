@@ -29,6 +29,11 @@ class EditPostFragment : Fragment() {
     ): View {
         _binding = FragmentEditPostBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.contentUpdateButton.setOnClickListener {
             viewModel.updateContent(args.post.postId, binding.contentEdit.text.toString())
             viewModel.updateHistory(args.post.postId, binding.contentEdit.text.toString())
@@ -72,9 +77,6 @@ class EditPostFragment : Fragment() {
                 }
             })
         })
-
-
-        return binding.root
     }
 
 
